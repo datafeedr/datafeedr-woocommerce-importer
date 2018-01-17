@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class Dfrpswc_Plugin_Dependency
  *
