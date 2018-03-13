@@ -8,7 +8,7 @@ Author URI: http://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 4.9.4
-Version: 1.2.21
+Version: 1.2.22
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2018, Datafeedr - help@datafeedr.com
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.21' );
+define( 'DFRPSWC_VERSION', '1.2.22' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -449,7 +449,7 @@ function dfrpswc_unset_post_categories( $obj ) {
 	 */
 	foreach ( $posts as $post ) {
 		$post_id = intval( $post->post_id );
-		dfrps_add_term_ids_to_post( $post_id, $obj->set, DFRPSWC_POST_TYPE, DFRPSWC_TAXONOMY );
+		wp_remove_object_terms( $post_id, dfrps_get_cpt_terms( $obj->set['ID'] ), DFRPSWC_TAXONOMY );
 		delete_post_meta( $post_id, '_dfrps_product_set_id', $obj->set['ID'] );
 	}
 
@@ -493,8 +493,8 @@ function dfrpswc_do_products( $data, $set ) {
 
 		// Handle other facets for this product such as postmeta, terms and attributes.
 		if ( $post ) {
-			dfrpswc_update_terms( $post, $product, $set, $action );
 			dfrpswc_update_postmeta( $post, $product, $set, $action );
+			dfrpswc_update_terms( $post, $product, $set, $action );
 			dfrpswc_update_attributes( $post, $product, $set, $action );
 			do_action( 'dfrpswc_do_product', $post, $product, $set, $action );
 		}
@@ -652,8 +652,7 @@ function dfrpswc_update_postmeta( $post, $product, $set, $action ) {
 function dfrpswc_update_terms( $post, $product, $set, $action ) {
 
 	// Get the IDs of the categories this product is associated with.
-	$terms = array();
-	$terms = dfrps_get_cpt_terms( $set['ID'] );
+	$terms = dfrpswc_get_all_term_ids_for_product( $post, $set );
 
 	// Create an array with key of taxonomy and values of terms
 	$taxonomies = array(
@@ -684,9 +683,39 @@ function dfrpswc_update_terms( $post, $product, $set, $action ) {
 
 	// Then iterate over the array using wp_set_post_terms()
 	foreach ( $taxonomies as $taxonomy => $terms ) {
-		$append = ( $taxonomy == DFRPSWC_TAXONOMY ) ? true : false;
-		$result = wp_set_post_terms( $post['ID'], $terms, $taxonomy, $append );
+		wp_set_post_terms( $post['ID'], $terms, $taxonomy, false );
 	}
+}
+
+/**
+ * Get all term IDs associated with a specific Product Set.
+ *
+ * @since 1.2.22
+ *
+ * @param array $post Array containing WordPress Post information.
+ * @param array $set Array containing Product Set information.
+ *
+ * @return array
+ */
+function dfrpswc_get_all_term_ids_for_product( $post, $set ) {
+
+	$terms = [];
+
+	// Get all Product Set IDs which added this product. This returns an array of Product Set IDs.
+	$product_set_ids = get_post_meta( $post['ID'], '_dfrps_product_set_id', false );
+
+	if ( ! isset( $product_set_ids ) || empty( $product_set_ids ) ) {
+		return $terms;
+	}
+
+	foreach ( $product_set_ids as $product_set_id ) {
+		$terms = array_merge( $terms, dfrps_get_cpt_terms( $product_set_id ) );
+	}
+
+	$terms = array_map( 'intval', $terms ); // Make sure these $terms are integers
+	$terms = array_unique( $terms );
+
+	return $terms;
 }
 
 /**
