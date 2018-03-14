@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.9.4
-Stable tag: 1.2.22
+Stable tag: 1.2.23
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -185,6 +185,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.23 - 2018/03/14 =
+* Declared required and supported WooCommerce version.
 
 = 1.2.22 - 2018/03/13 =
 * Fixed issue related to WooCommerce forcing all products to be associated with at least one category.
