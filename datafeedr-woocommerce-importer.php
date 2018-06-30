@@ -4,14 +4,14 @@ Plugin Name: Datafeedr WooCommerce Importer
 Plugin URI: http://www.datafeedr.com
 Description: Import products from the Datafeedr Product Sets plugin into your WooCommerce store. <strong>REQUIRES: </strong><a href="http://wordpress.org/plugins/datafeedr-api/">Datafeedr API plugin</a>, <a href="http://wordpress.org/plugins/datafeedr-product-sets/">Datafeedr Product Sets plugin</a>, <a href="http://wordpress.org/plugins/woocommerce/">WooCommerce</a> (v3.0+).
 Author: datafeedr.com
-Author URI: http://www.datafeedr.com
+Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 4.9.5
-Version: 1.2.24
+Tested up to: 4.9.6
+Version: 1.2.25
 
 WC requires at least: 3.0
-WC tested up to: 3.3.4
+WC tested up to: 3.4.3
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2018, Datafeedr - help@datafeedr.com
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.24' );
+define( 'DFRPSWC_VERSION', '1.2.25' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
