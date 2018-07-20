@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Datafeedr WooCommerce Importer
-Plugin URI: http://www.datafeedr.com
+Plugin URI: https://www.datafeedr.com
 Description: Import products from the Datafeedr Product Sets plugin into your WooCommerce store. <strong>REQUIRES: </strong><a href="http://wordpress.org/plugins/datafeedr-api/">Datafeedr API plugin</a>, <a href="http://wordpress.org/plugins/datafeedr-product-sets/">Datafeedr Product Sets plugin</a>, <a href="http://wordpress.org/plugins/woocommerce/">WooCommerce</a> (v3.0+).
 Author: datafeedr.com
 Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 4.9.6
-Version: 1.2.25
+Tested up to: 4.9.8
+Version: 1.2.26
 
 WC requires at least: 3.0
 WC tested up to: 3.4.3
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.25' );
+define( 'DFRPSWC_VERSION', '1.2.26' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -48,7 +48,7 @@ define( 'DFRPSWC_BASENAME', plugin_basename( __FILE__ ) );
 define( 'DFRPSWC_DOMAIN', 'dfrpswc_integration' );
 define( 'DFRPSWC_POST_TYPE', 'product' );
 define( 'DFRPSWC_TAXONOMY', 'product_cat' );
-define( 'DFRPSWC_CONTACT', 'http://www.datafeedr.com/contact' );
+define( 'DFRPSWC_CONTACT', 'https://www.datafeedr.com/contact' );
 
 /**
  * Load upgrade file.

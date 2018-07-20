@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.9.6
-Stable tag: 1.2.25
+Tested up to: 4.9.8
+Stable tag: 1.2.26
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -21,7 +21,7 @@ Simply use our powerful search form to find the products you want to promote, th
 
 > **Heads-up!** — This plugin requires that you have an active subscription to one of our API plans. Purchase a subscription [here](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg).
 
-[youtube https://www.youtube.com/watch?v=jwUuqHHWOtY]
+[youtube https://www.youtube.com/watch?v=6MCcGkaUJX8]
 
 = What is WooCommerce? =
 WooCommerce is a free eCommerce plugin that helps you sell anything on your WordPress blog, even affiliate products.
@@ -30,7 +30,7 @@ WooCommerce is a free eCommerce plugin that helps you sell anything on your Word
 The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscoutdocs.com/article/109-datafeedr-woocommerce-importer-set-up-guide?utm_campaign=dfrpswcplugin&utm_medium=referral&utm_source=wporg) can be found in our documentation or check out the [video tutorial](https://www.youtube.com/watch?v=A4j7bwL9v-E).
 
 = Demo =
-[GearGrabber.net](http://www.geargrabber.net/) - We created GearGrabber to demonstrate the power of the Datafeedr WooCommerce Importer plugin. GearGrabber is a marketplace for discounted outdoor gear. GearGrabber is a live site and regularly generates sales.
+[GearGrabber.net](https://www.geargrabber.net/) - We created GearGrabber to demonstrate the power of the Datafeedr WooCommerce Importer plugin. GearGrabber is a marketplace for discounted outdoor gear. GearGrabber is a live site and regularly generates sales.
 
 = Features =
 36 reasons why you'll LOVE our plugin!
@@ -135,13 +135,13 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Optimise** (IN)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK)
+1. **Partnerize** (US)
 1. **PepperJam** (US)
-1. **Performance Horizon** (US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
 1. **SuperClix** (DE)
-1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IR, IT, NL, NO, PL, PT, SE, UK)
+1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
 1. **TradeTracker** (AT, BE, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE, UK)
 1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
 1. **Zanox** (AU, AT, BE, BR, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE)
@@ -186,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.26 - 2018/07/20 =
+* Updated readme with Partnerize and new video.
 
 = 1.2.24 - 2018/03/29 =
 * Added Effiliation to readme.
