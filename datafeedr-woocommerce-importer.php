@@ -8,7 +8,7 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 4.9.8
-Version: 1.2.26
+Version: 1.2.27
 
 WC requires at least: 3.0
 WC tested up to: 3.4.3
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.26' );
+define( 'DFRPSWC_VERSION', '1.2.27' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -55,6 +55,7 @@ define( 'DFRPSWC_CONTACT', 'https://www.datafeedr.com/contact' );
  */
 require_once( DFRPSWC_PATH . 'upgrade.php' );
 require_once( DFRPSWC_PATH . 'class-dfrpswc-plugin-dependency.php' );
+require_once( DFRPSWC_PATH . 'class-dfrpswc-attribute-importer.php' );
 
 
 /*******************************************************************
@@ -74,7 +75,8 @@ function dfrpswc_admin_notice_plugin_dependencies() {
 	 */
 	$dependencies = array(
 		new Dfrpswc_Plugin_Dependency( 'Datafeedr API', 'datafeedr-api/datafeedr-api.php', '1.0.75' ),
-		new Dfrpswc_Plugin_Dependency( 'Datafeedr Product Sets', 'datafeedr-product-sets/datafeedr-product-sets.php', '1.2.24' ),
+		new Dfrpswc_Plugin_Dependency( 'Datafeedr Product Sets', 'datafeedr-product-sets/datafeedr-product-sets.php',
+			'1.2.24' ),
 		new Dfrpswc_Plugin_Dependency( 'WooCommerce', 'woocommerce/woocommerce.php', '3.0' ),
 	);
 
@@ -1341,11 +1343,11 @@ function dfrpswc_woocommerce_product_class( $classname, $product_type, $post_typ
 function dfrpswc_extend_wc_product_external_class() {
 
 	if ( ! class_exists( 'WC_Product_External' ) ) {
-	    return;
-    }
+		return;
+	}
 
 	if ( class_exists( 'Wccal' ) ) {
-        return;
+		return;
 	}
 
 	class Dfrpswc_Product_External extends WC_Product_External {

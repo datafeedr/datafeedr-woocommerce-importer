@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.9.8
-Stable tag: 1.2.26
+Stable tag: 1.2.27
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -35,7 +35,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 = Features =
 36 reasons why you'll LOVE our plugin!
 
-* **350+ Million Products** - Access our massive database of affiliate products.
+* **450+ Million Products** - Access our massive database of affiliate products.
 
 * **13,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
 
@@ -186,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.27 - 2018/07/23 =
+* Added new Dfrpswc_Attribute_Importer class. ([see documentation](https://datafeedrapi.helpscoutdocs.com/article/221-import-attribute-for-a-product))
 
 = 1.2.26 - 2018/07/20 =
 * Updated readme with Partnerize and new video.
