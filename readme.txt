@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.9.8
-Stable tag: 1.2.27
+Stable tag: 1.2.28
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -186,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.28 - 2018/07/24 =
+* Added new single-products/add-to-cart/external.php file to replace `<form>` element with regular `<a>` element.
 
 = 1.2.27 - 2018/07/23 =
 * Added new Dfrpswc_Attribute_Importer class. ([see documentation](https://datafeedrapi.helpscoutdocs.com/article/221-import-attribute-for-a-product))

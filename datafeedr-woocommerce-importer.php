@@ -8,7 +8,7 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 4.9.8
-Version: 1.2.27
+Version: 1.2.28
 
 WC requires at least: 3.0
 WC tested up to: 3.4.3
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.27' );
+define( 'DFRPSWC_VERSION', '1.2.28' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -1791,3 +1791,46 @@ function dfrpswc_plugin_activation_url( $plugin_file ) {
 
 	return $url;
 }
+
+/**
+ * Override WooCommerce template files if they are not already being overridden by
+ * the user's theme.
+ *
+ * @since 1.2.28
+ *
+ * @global $woocommerce
+ *
+ * @param string $template Full path to current template file. Example: /home/user/public_html/wp-content/themes/storefront-child/woocommerce/single-product/add-to-cart/external.php
+ * @param string $template_name Relative path to template. Example: single-product/add-to-cart/external.php
+ * @param string $template_path Path to WooCommerce template files. Example: woocommerce/
+ *
+ * @return string Full path to template file.
+ */
+function dfrpswc_override_woocommerce_template_files( $template, $template_name, $template_path ) {
+
+	global $woocommerce;
+
+	$_template = $template;
+
+	if ( ! $template_path ) {
+		$template_path = $woocommerce->template_url;
+	}
+
+	$plugin_path = trailingslashit( DFRPSWC_PATH ) . $template_path;
+
+	// Get the template file from the theme... This takes priority.
+	$template = locate_template( [ $template_path . $template_name, $template_name ] );
+
+	// Load DFRPSWC template file if one does not exist in the user's theme.
+	if ( ! $template && file_exists( $plugin_path . $template_name ) ) {
+		$template = $plugin_path . $template_name;
+	}
+
+	if ( ! $template ) {
+		$template = $_template;
+	}
+
+	return $template;
+}
+
+add_filter( 'woocommerce_locate_template', 'dfrpswc_override_woocommerce_template_files', 10, 3 );
