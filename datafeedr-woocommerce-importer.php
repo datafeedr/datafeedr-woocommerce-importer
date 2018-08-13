@@ -8,10 +8,10 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 4.9.8
-Version: 1.2.28
+Version: 1.2.29
 
 WC requires at least: 3.0
-WC tested up to: 3.4.3
+WC tested up to: 3.4.4
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2018, Datafeedr - help@datafeedr.com
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.28' );
+define( 'DFRPSWC_VERSION', '1.2.29' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -612,16 +612,25 @@ function dfrpswc_update_postmeta( $post, $product, $set, $action ) {
 		$meta['_dfrps_featured_image_url'] = @$product['thumbnail'];
 	}
 
-	// Handle price.
-	if ( isset( $product['price'] ) ) {
-		$meta['_regular_price'] = dfrps_int_to_price( $product['price'] );
-		$meta['_price']         = dfrps_int_to_price( $product['price'] );
+	// Get highest and lowest price for this product.
+	$highest_price = ( isset( $product['price'] ) ) ? absint( $product['price'] ) : 0;
+	$lowest_price  = ( isset( $product['finalprice'] ) ) ? absint( $product['finalprice'] ) : $highest_price;
+
+	// Handle regular price.
+	if ( $highest_price > 0 ) {
+		$meta['_regular_price'] = dfrps_int_to_price( $highest_price );
+		$meta['_price']         = dfrps_int_to_price( $highest_price );
+	} else {
+		$meta['_regular_price'] = '';
+		$meta['_price']         = '';
 	}
 
 	// Handle sale price.
-	if ( isset( $product['saleprice'] ) ) {
-		$meta['_sale_price'] = dfrps_int_to_price( $product['saleprice'] );
-		$meta['_price']      = dfrps_int_to_price( $product['saleprice'] );
+	if ( $highest_price > $lowest_price ) {
+		$meta['_sale_price'] = dfrps_int_to_price( $lowest_price );
+		$meta['_price']      = dfrps_int_to_price( $lowest_price );
+	} else {
+		$meta['_sale_price'] = '';
 	}
 
 	// Handle sale discount.
