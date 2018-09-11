@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.9.8
-Stable tag: 1.2.29
+Stable tag: 1.2.30
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -132,7 +132,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **LinkConnector** (US)
 1. **LinkShare** (AU, BR, UK, US)
 1. **oneNetworkDirect** (DE, UK, US)
-1. **Optimise** (IN)
+1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK)
 1. **Partnerize** (US)
@@ -186,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.30 - 2018/09/11 =
+* Update network country list for Optimise.
 
 = 1.2.29 - 2018/08/13 =
 * Fixed bug related to sale price not updating. (issues/169)
