@@ -7,8 +7,8 @@ Author: datafeedr.com
 Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 4.9.8
-Version: 1.2.30
+Tested up to: 4.9.9
+Version: 1.2.31
 
 WC requires at least: 3.0
 WC tested up to: 3.4.5
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.30' );
+define( 'DFRPSWC_VERSION', '1.2.31' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
