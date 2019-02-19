@@ -7,11 +7,11 @@ Author: datafeedr.com
 Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 5.0
+Tested up to: 5.1
 Version: 1.2.33
 
 WC requires at least: 3.0
-WC tested up to: 3.5.2
+WC tested up to: 3.5.4
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2019, Datafeedr - help@datafeedr.com
