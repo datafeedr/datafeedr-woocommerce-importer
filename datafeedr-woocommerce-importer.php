@@ -8,7 +8,7 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.1
-Version: 1.2.33
+Version: 1.2.34
 
 WC requires at least: 3.0
 WC tested up to: 3.5.4
