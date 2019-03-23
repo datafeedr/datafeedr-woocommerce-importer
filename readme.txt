@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.1
-Stable tag: 1.2.34
+Tested up to: 5.1.1
+Stable tag: 1.2.35
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -127,6 +127,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Daisycon** (BE, DE, FR, NL)
 1. **Double.net** (SE)
 1. **Effiliation** (FR, DE, ES)
+1. **FlexOffers** (US)
 1. **Impact Radius** (US)
 1. **LinkConnector** (US)
 1. **LinkShare** (AU, BR, UK, US)
@@ -185,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.35 - 2019/03/23 =
+* Added FlexOffers to Readme.
 
 = 1.2.34 - 2019/02/19 =
 * Updated readme.
