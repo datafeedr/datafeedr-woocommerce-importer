@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.2
-Stable tag: 1.2.37
+Stable tag: 1.2.38
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -111,7 +111,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchants from the following affiliate networks:
 
 1. **Adrecord** (DK, FI, NO, SE)
-1. **Adtraction** (DK, FI, NO, SE)
+1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE)
 1. **AWIN** (AU, AT, BE, CA, DK, FI, FR, DE, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
 1. **Affilinet** (DE, ES, FR, NL, UK)
 1. **APD** (AU)
@@ -136,11 +136,12 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK)
 1. **Partnerize** (US)
-1. **PepperJam** (US)
+1. **PepperJam** (CA, UK, US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
 1. **SuperClix** (DE)
+1. **The Affiliate Gateway** (UK)
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
 1. **TradeTracker** (AT, BE, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE, UK)
 1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
@@ -186,6 +187,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.38 - 2019/05/21 =
+* Updated readme with new affiliate networks and supported countries.
 
 = 1.2.37 - 2019/05/06 =
 * Updated readme.
