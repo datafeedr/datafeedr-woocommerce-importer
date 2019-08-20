@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.2
-Stable tag: 1.2.38
+Tested up to: 5.2.2
+Stable tag: 1.2.39
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -113,8 +113,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Adrecord** (DK, FI, NO, SE)
 1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE)
 1. **AWIN** (AU, AT, BE, CA, DK, FI, FR, DE, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
-1. **Affilinet** (DE, ES, FR, NL, UK)
-1. **APD** (AU)
+1. **Affilinet** (AT, FR, DE, CH)
 1. **Avangate** (US)
 1. **AvantLink** (AU, CA, US)
 1. **belboon** (DE, FR, NL, UK)
@@ -123,19 +122,19 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
 1. **Commission Factory** (AU)
-1. **Commission Junction** (FR, DE, SE, UK, US)
+1. **Commission Junction** (CA, FR, DE, ES, SE, UK, US)
 1. **Daisycon** (BE, DE, FR, NL)
 1. **Double.net** (SE)
 1. **Effiliation** (FR, DE, ES)
 1. **FlexOffers** (US)
-1. **Impact Radius** (US)
+1. **Impact Radius** (AU, NL, UK, US)
 1. **LinkConnector** (US)
 1. **LinkShare** (AU, BR, UK, US)
 1. **oneNetworkDirect** (DE, UK, US)
 1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK)
-1. **Partnerize** (US)
+1. **Partnerize** (AU, BE, CA, DE, IT, NL, UK, US)
 1. **PepperJam** (CA, UK, US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)
@@ -187,6 +186,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.39 - 2019/08/20 =
+* Updated for WooCommerce 3.7
 
 = 1.2.38 - 2019/05/21 =
 * Updated readme with new affiliate networks and supported countries.
