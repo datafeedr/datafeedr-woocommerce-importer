@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.2.3
-Stable tag: 1.2.40
+Tested up to: 5.3
+Stable tag: 1.2.41
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -121,7 +121,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
 1. **Commission Factory** (AU)
-1. **Commission Junction** (CA, FR, DE, ES, SE, UK, US)
+1. **Commission Junction** (CA, FR, DE, NL, ES, SE, UK, US)
 1. **Daisycon** (BE, DE, FR, NL)
 1. **Double.net** (SE)
 1. **Effiliation** (FR, DE, ES)
@@ -143,7 +143,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
 1. **TradeTracker** (AT, BE, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE, UK)
 1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
-1. **Zanox** (AU, AT, BE, BR, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE)
+1. **Zanox** (BR)
 
 = Requirements =
 In order to use the Datafeedr WooCommerce Importer plugin you'll need a few things:
@@ -185,6 +185,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.41 - 2019/11/12 =
+* Updated readme.
 
 = 1.2.40 - 2019/09/25 =
 * Removed affilinet.
