@@ -8,10 +8,10 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.3.0
-Version: 1.2.41
+Version: 1.2.42
 
 WC requires at least: 3.0
-WC tested up to: 3.8
+WC tested up to: 3.9
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2019, Datafeedr - help@datafeedr.com
@@ -502,6 +502,12 @@ function dfrpswc_do_products( $data, $set ) {
 			dfrpswc_update_terms( $post, $product, $set, $action );
 			dfrpswc_update_attributes( $post, $product, $set, $action );
 			do_action( 'dfrpswc_do_product', $post, $product, $set, $action );
+
+			// Refresh WC_Product.
+			$wc_product = wc_get_product( $post['ID'] );
+			$short_desc = $wc_product->get_short_description() . ' ';
+			$wc_product->set_short_description( $short_desc );
+			$wc_product->save();
 		}
 
 	}

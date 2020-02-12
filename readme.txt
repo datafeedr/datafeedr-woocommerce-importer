@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.3
-Stable tag: 1.2.41
+Stable tag: 1.2.42
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -123,7 +123,6 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Commission Factory** (AU)
 1. **Commission Junction** (CA, FR, DE, NL, ES, SE, UK, US)
 1. **Daisycon** (BE, DE, FR, NL)
-1. **Double.net** (SE)
 1. **Effiliation** (FR, DE, ES)
 1. **FlexOffers** (US)
 1. **Impact Radius** (AU, NL, UK, US)
@@ -185,6 +184,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.42 - 2020/02/12 =
+* Updated readme
+* Added a WC_Product refresher after each Product update.
 
 = 1.2.41 - 2019/11/12 =
 * Updated readme.
