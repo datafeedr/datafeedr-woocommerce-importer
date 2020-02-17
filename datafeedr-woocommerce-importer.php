@@ -8,7 +8,7 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.3.0
-Version: 1.2.42
+Version: 1.2.43
 
 WC requires at least: 3.0
 WC tested up to: 3.9
@@ -504,10 +504,10 @@ function dfrpswc_do_products( $data, $set ) {
 			do_action( 'dfrpswc_do_product', $post, $product, $set, $action );
 
 			// Refresh WC_Product.
-			$wc_product = wc_get_product( $post['ID'] );
-			$short_desc = $wc_product->get_short_description() . ' ';
-			$wc_product->set_short_description( $short_desc );
-			$wc_product->save();
+//			$wc_product = wc_get_product( $post['ID'] );
+//			$short_desc = $wc_product->get_short_description() . ' ';
+//			$wc_product->set_short_description( $short_desc );
+//			$wc_product->save();
 		}
 
 	}
