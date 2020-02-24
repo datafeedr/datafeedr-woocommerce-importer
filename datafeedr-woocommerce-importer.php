@@ -8,13 +8,13 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.3.0
-Version: 1.2.43
+Version: 1.2.44
 
 WC requires at least: 3.0
 WC tested up to: 3.9
 
 Datafeedr WooCommerce Importer plugin
-Copyright (C) 2019, Datafeedr - help@datafeedr.com
+Copyright (C) 2020, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.41' );
+define( 'DFRPSWC_VERSION', '1.2.44' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -483,6 +483,11 @@ function dfrpswc_do_products( $data, $set ) {
 
 		// Get post if it already exists.
 		$existing_post = dfrps_get_existing_post( $product, $set );
+
+		// If $existing_post equals "skip", that means the product has been imported but attempts to query it return false because of a race condition.
+		if ( $existing_post === 'skip' ) {
+			continue;
+		}
 
 		// Disable W3TC's caching while processing products.
 		add_filter( 'w3tc_flushable_post', '__return_false', 20, 3 );
