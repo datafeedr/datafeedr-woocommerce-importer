@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.4
-Stable tag: 1.2.46
+Tested up to: 5.5
+Stable tag: 1.2.47
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -122,8 +122,8 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
 1. **Commission Factory** (AU)
-1. **Commission Junction** (CA, FR, DE, NL, ES, SE, UK, US)
-1. **Daisycon** (BE, DE, FR, NL)
+1. **Commission Junction** (BR, CA, FR, DE, NL, ES, SE, UK, US)
+1. **Daisycon** (BE, DK, FI, DE, IT, FR, NL, NO, ES, SE)
 1. **Effiliation** (FR, DE, ES)
 1. **FlexOffers** (US)
 1. **Impact Radius** (AU, NL, UK, US)
@@ -132,7 +132,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK)
-1. **Partnerize** (AU, BE, CA, DE, IT, NL, UK, US)
+1. **Partnerize** (AU, BE, CA, DE, IT, NL, ES, UK, US)
 1. **PepperJam** (CA, UK, US)
 1. **Rakuten** (AU, BR, UK, US)
 1. **RevResponse** (US)
@@ -141,7 +141,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **SuperClix** (DE)
 1. **The Affiliate Gateway** (UK)
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
-1. **TradeTracker** (AT, BE, CH, DE, DK, ES, FI, FR, IT, NL, NO, PL, SE, UK)
+1. **TradeTracker** (AT, BE, BR, CH, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
 1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
 1. **Zanox** (BR)
 
@@ -185,6 +185,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.47 - 2020/07/27 =
+* Updated readme with new network information.
 
 = 1.2.46 - 2020/03/26 =
 * Updated readme with new network information.
