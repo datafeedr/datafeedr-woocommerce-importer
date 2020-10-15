@@ -53,10 +53,13 @@ define( 'DFRPSWC_CONTACT', 'https://www.datafeedr.com/contact' );
 /**
  * Load upgrade file.
  */
-require_once( DFRPSWC_PATH . 'upgrade.php' );
-require_once( DFRPSWC_PATH . 'class-dfrpswc-plugin-dependency.php' );
-require_once( DFRPSWC_PATH . 'class-dfrpswc-attribute-importer.php' );
-
+require_once dirname( __FILE__ ) . '/functions.php';
+require_once dirname( __FILE__ ) . '/upgrade.php';
+require_once dirname( __FILE__ ) . '/classes/plugin-dependency.php';
+require_once dirname( __FILE__ ) . '/classes/attribute-importer.php';
+require_once dirname( __FILE__ ) . '/classes/product-update-handler.php';
+require_once dirname( __FILE__ ) . '/actions.php';
+require_once dirname( __FILE__ ) . '/filters.php';
 
 /*******************************************************************
  * ADMIN NOTICES
@@ -70,15 +73,23 @@ require_once( DFRPSWC_PATH . 'class-dfrpswc-attribute-importer.php' );
  */
 function dfrpswc_admin_notice_plugin_dependencies() {
 
-	/**
-	 * @var Dfrpswc_Plugin_Dependency[] $dependencies
-	 */
-	$dependencies = array(
-		new Dfrpswc_Plugin_Dependency( 'Datafeedr API', 'datafeedr-api/datafeedr-api.php', '1.0.75' ),
-		new Dfrpswc_Plugin_Dependency( 'Datafeedr Product Sets', 'datafeedr-product-sets/datafeedr-product-sets.php',
-			'1.2.24' ),
-		new Dfrpswc_Plugin_Dependency( 'WooCommerce', 'woocommerce/woocommerce.php', '3.0' ),
-	);
+	$dependencies = [
+		new Dfrpswc_Plugin_Dependency(
+			'Datafeedr API',
+			'datafeedr-api/datafeedr-api.php',
+			'1.0.75'
+		),
+		new Dfrpswc_Plugin_Dependency(
+			'Datafeedr Product Sets',
+			'datafeedr-product-sets/datafeedr-product-sets.php',
+			'1.2.24'
+		),
+		new Dfrpswc_Plugin_Dependency(
+			'WooCommerce',
+			'woocommerce/woocommerce.php',
+			'3.0'
+		),
+	];
 
 	foreach ( $dependencies as $dependency ) {
 
@@ -100,7 +111,6 @@ add_action( 'admin_notices', 'dfrpswc_admin_notice_plugin_dependencies' );
 /**
  * Display admin notices upon update.
  */
-add_action( 'admin_notices', 'dfrpswc_settings_updated' );
 function dfrpswc_settings_updated() {
 	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && isset( $_GET['page'] ) && 'dfrpswc_options' == $_GET['page'] ) {
 		echo '<div class="updated">';
@@ -109,10 +119,11 @@ function dfrpswc_settings_updated() {
 	}
 }
 
+add_action( 'admin_notices', 'dfrpswc_settings_updated' );
+
 /**
  * Notify user that their version of DFRPSWC is not compatible with their version of DFRPS.
  */
-add_action( 'admin_notices', 'dfrpswc_not_compatible_with_dfrps' );
 function dfrpswc_not_compatible_with_dfrps() {
 	if ( defined( 'DFRPS_VERSION' ) ) {
 		if ( version_compare( DFRPS_VERSION, '1.2.0', '<' ) ) {
@@ -123,16 +134,17 @@ function dfrpswc_not_compatible_with_dfrps() {
 			update_option( 'dfrps_configuration', $dfrps_configuration );
 
 			$file = 'datafeedr-product-sets/datafeedr-product-sets.php';
-			$url  = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $file,
-				'upgrade-plugin_' . $file );
-
+			$url  = wp_nonce_url(
+				self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $file,
+				'upgrade-plugin_' . $file
+			);
 			?>
 
-            <div class="error">
-                <p>
-                    <strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
+			<div class="error">
+				<p>
+					<strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
 
-                    <br/>
+					<br/>
 
 					<?php
 					_e(
@@ -141,7 +153,7 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-                    <br/>
+					<br/>
 
 					<?php
 					_e( 'Failure to upgrade will result in data loss. Please update your version of the <strong><em>Datafeedr Product Sets</em></strong> plugin now.',
@@ -149,19 +161,20 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-                    <br/>
+					<br/>
 
-                    <a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
+					<a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
 						<?php _e( 'Update Now', 'dfrpswc_integration' ); ?>
-                    </a>
-                </p>
-            </div>
+					</a>
+				</p>
+			</div>
 
 			<?php
 		}
 	}
 }
 
+add_action( 'admin_notices', 'dfrpswc_not_compatible_with_dfrps' );
 
 /*******************************************************************
  * REGISTER CUSTOM POST TYPE FOR PRODUCT SETS
@@ -176,9 +189,9 @@ function dfrpswc_register_cpt() {
 	if ( function_exists( 'dfrps_register_cpt' ) ) {
 		$args = array(
 			'taxonomy'         => DFRPSWC_TAXONOMY,
-			'name'             => _x( 'WooCommerce Products', DFRPSWC_DOMAIN ),
-			'tax_name'         => _x( 'WooCommerce Categories', DFRPSWC_DOMAIN ),
-			'tax_instructions' => _x( 'Add this Product Set to a Product Category.', DFRPSWC_DOMAIN ),
+			'name'             => _x( 'WooCommerce Products', 'dfrpswc_integration' ),
+			'tax_name'         => _x( 'WooCommerce Categories', 'dfrpswc_integration' ),
+			'tax_instructions' => _x( 'Add this Product Set to a Product Category.', 'dfrpswc_integration' ),
 		);
 		dfrps_register_cpt( DFRPSWC_POST_TYPE, $args );
 	}
@@ -473,6 +486,11 @@ function dfrpswc_unset_post_categories( $obj ) {
 add_action( 'dfrps_action_do_products_' . DFRPSWC_POST_TYPE, 'dfrpswc_do_products', 10, 2 );
 function dfrpswc_do_products( $data, $set ) {
 
+	$use_new_dfrpswc_handle_product_function = boolval( apply_filters(
+		'use_new_dfrpswc_handle_product_function',
+		false
+	) );
+
 	// Check if there are products available.
 	if ( ! isset( $data['products'] ) || empty( $data['products'] ) ) {
 		return;
@@ -480,6 +498,11 @@ function dfrpswc_do_products( $data, $set ) {
 
 	// Loop thru products.
 	foreach ( $data['products'] as $product ) {
+
+		if ( $use_new_dfrpswc_handle_product_function ) {
+			dfrpswc_upsert_product( $product, $set );
+			continue;
+		}
 
 		// Get post if it already exists.
 		$existing_post = dfrps_get_existing_post( $product, $set );
@@ -507,14 +530,7 @@ function dfrpswc_do_products( $data, $set ) {
 			dfrpswc_update_terms( $post, $product, $set, $action );
 			dfrpswc_update_attributes( $post, $product, $set, $action );
 			do_action( 'dfrpswc_do_product', $post, $product, $set, $action );
-
-			// Refresh WC_Product.
-//			$wc_product = wc_get_product( $post['ID'] );
-//			$short_desc = $wc_product->get_short_description() . ' ';
-//			$wc_product->set_short_description( $short_desc );
-//			$wc_product->save();
 		}
-
 	}
 }
 
@@ -540,12 +556,13 @@ function dfrpswc_update_post( $existing_post, $product, $set, $action ) {
 	 * Useful for changing the post_status of a product or modifying its name
 	 * or description before persisting.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$post = apply_filters( 'dfrpswc_filter_post_array', $post, $product, $set, $action );
 
@@ -577,12 +594,13 @@ function dfrpswc_insert_post( $product, $set, $action ) {
 	 * Useful for changing the post_status of a product or modifying its name
 	 * or description before persisting.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$post = apply_filters( 'dfrpswc_filter_post_array', $post, $product, $set, $action );
 
@@ -653,13 +671,14 @@ function dfrpswc_update_postmeta( $post, $product, $set, $action ) {
 	 * Hook into this filter to change any postmeta related information before it's saved or updated.
 	 * Useful for modifying pricing information or other product related information.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $meta Array containing postmeta data for this WordPress $post.
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$meta = apply_filters( 'dfrpswc_filter_postmeta_array', $meta, $post, $product, $set, $action );
 
@@ -691,13 +710,14 @@ function dfrpswc_update_terms( $post, $product, $set, $action ) {
 	 *
 	 * Hook into this filter to change any $taxonomies related information before it's saved or updated.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $taxonomies Array keyed by taxonomy name and having values of taxonomy values.
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$taxonomies = apply_filters( 'dfrpswc_filter_taxonomy_array', $taxonomies, $post, $product, $set, $action );
 
@@ -715,12 +735,12 @@ function dfrpswc_update_terms( $post, $product, $set, $action ) {
 /**
  * Get all term IDs associated with a specific Product Set.
  *
- * @since 1.2.22
- *
  * @param array $post Array containing WordPress Post information.
  * @param array $set Array containing Product Set information.
  *
  * @return array
+ * @since 1.2.22
+ *
  */
 function dfrpswc_get_all_term_ids_for_product( $post, $set ) {
 
@@ -761,13 +781,14 @@ function dfrpswc_update_attributes( $post, $product, $set, $action ) {
 	/**
 	 * Allow the $attributes array to be modified before saving/updating.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $attributes Array or attribute values.
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$attributes = apply_filters( 'dfrpswc_product_attributes', $attributes, $post, $product, $set, $action );
 
@@ -926,13 +947,14 @@ function dfrpswc_update_attributes( $post, $product, $set, $action ) {
 	/**
 	 * Allow the $attrs array to be modified before saving/updating.
 	 *
-	 * @since 0.9.3
-	 *
 	 * @param array $attrs Array or attribute values.
 	 * @param array $post Array containing WordPress Post information.
 	 * @param array $product Array containing Datafeedr Product information.
 	 * @param array $set Array containing Product Set information.
 	 * @param string $action Either "update" or "insert" depending on what the Product Set is doing.
+	 *
+	 * @since 0.9.3
+	 *
 	 */
 	$attrs = apply_filters( 'dfrpswc_pre_save_attributes', $attrs, $post, $product, $set, $action );
 
@@ -1329,9 +1351,10 @@ function dfrpswc_woocommerce_product_class( $classname, $product_type, $post_typ
 	 *
 	 * If there's another Product class that should be allowed to be extended, add it here.
 	 *
+	 * @param array $valid_classes Array of valid product classes.
+	 *
 	 * @since 1.2.14
 	 *
-	 * @param array $valid_classes Array of valid product classes.
 	 */
 	$valid_classes = apply_filters( 'dfrpswc_valid_product_classes', $valid_classes );
 
@@ -1459,9 +1482,9 @@ function dfrpswc_product_sets_relationships_metabox( $post, $box ) {
  * Home Depot (#61292) and Home Depot Canada (#61293) products
  * on the shop homepage, category pages and single product pages.
  *
+ * @return null|string Returns <img> tag if product is from Home Depot, else null.
  * @since 1.2.9
  *
- * @return null|string Returns <img> tag if product is from Home Depot, else null.
  */
 add_action( 'woocommerce_after_shop_loop_item', 'dfrpswc_add_home_depot_impression_url' );
 add_action( 'woocommerce_after_single_product_summary', 'dfrpswc_add_home_depot_impression_url' );
@@ -1599,14 +1622,15 @@ function dfrpswc_action_links( $links ) {
  *
  * This only happens when a shared term is updated (eg, when its name is updated in the Dashboard).
  *
+ * @param int $old_term_id The old term ID to search for.
+ * @param int $new_term_id The new term ID to replace the old one with.
+ * @param int $term_obj_taxonomy_id The term's tax ID.
+ * @param string $taxonomy The corresponding taxonomy.
+ *
  * @since 1.2.1
  *
  * @link https://make.wordpress.org/core/2015/02/16/taxonomy-term-splitting-in-4-2-a-developer-guide/
  *
- * @param  int $old_term_id The old term ID to search for.
- * @param  int $new_term_id The new term ID to replace the old one with.
- * @param  int $term_obj_taxonomy_id The term's tax ID.
- * @param  string $taxonomy The corresponding taxonomy.
  */
 add_action( 'split_shared_term', 'dfrpswc_update_terms_for_split_terms', 20, 4 );
 function dfrpswc_update_terms_for_split_terms( $old_term_id, $new_term_id, $term_obj_taxonomy_id, $taxonomy ) {
@@ -1651,12 +1675,13 @@ function dfrpswc_update_terms_for_split_terms( $old_term_id, $new_term_id, $term
  * list of post IDs. Those post IDs are then referenced by other
  * functions and processed appropriately.
  *
- * @since 1.2.3
+ * @param         $table_name string The name of the table we will create. This
+ * should already be prefixed with $wpdb->prefix;
  *
  * @global object $wpdb WP Database Object.
  *
- * @param         $table_name string The name of the table we will create. This
- * should already be prefixed with $wpdb->prefix;
+ * @since 1.2.3
+ *
  */
 function dfrpswc_create_temp_post_ids_table( $table_name ) {
 	global $wpdb;
@@ -1679,12 +1704,13 @@ function dfrpswc_create_temp_post_ids_table( $table_name ) {
  * Drops a temp table which was used for temporarily storing a list
  * of post IDs.
  *
- * @since 1.2.3
+ * @param         $table_name string The name of the table we will create. This
+ * should already be prefixed with $wpdb->prefix;
  *
  * @global object $wpdb WP Database Object.
  *
- * @param         $table_name string The name of the table we will create. This
- * should already be prefixed with $wpdb->prefix;
+ * @since 1.2.3
+ *
  */
 function dfrpswc_drop_temp_post_ids_table( $table_name ) {
 	global $wpdb;
@@ -1714,14 +1740,14 @@ function dfrpswc_dfrps_update_reset() {
  *
  * This inserts an array of post IDs into the temporary table $table_name.
  *
- * @since 1.2.3
- *
- * @global object $wpdb WP Database Object.
- *
  * @param array $ids An array of Post IDs.
  * @param string $table_name The name of the table (with wp_prefix) to import IDs into.
  *
  * @return array Returns array of inserted post IDs.
+ * @global object $wpdb WP Database Object.
+ *
+ * @since 1.2.3
+ *
  */
 function dfrpswc_insert_ids_into_temp_table( $ids, $table_name ) {
 
@@ -1764,11 +1790,11 @@ function dfrpswc_plugin_is_installed( $plugin_file ) {
 /**
  * Returns a URL for installing a plugin.
  *
- * @since 1.2.13
- *
  * @param string $plugin_file Plugin file name formatted like: woocommerce/woocommerce.php
  *
  * @return string URL or empty string if user is not allowed.
+ * @since 1.2.13
+ *
  */
 function dfrpswc_plugin_installation_url( $plugin_file ) {
 
@@ -1790,11 +1816,11 @@ function dfrpswc_plugin_installation_url( $plugin_file ) {
 /**
  * Returns a URL for activating a plugin.
  *
- * @since 1.2.13
- *
  * @param string $plugin_file Plugin file name formatted like: woocommerce/woocommerce.php
  *
  * @return string URL or empty string if user is not allowed.
+ * @since 1.2.13
+ *
  */
 function dfrpswc_plugin_activation_url( $plugin_file ) {
 
@@ -1816,15 +1842,15 @@ function dfrpswc_plugin_activation_url( $plugin_file ) {
  * Override WooCommerce template files if they are not already being overridden by
  * the user's theme.
  *
- * @since 1.2.28
- *
- * @global $woocommerce
- *
  * @param string $template Full path to current template file. Example: /home/user/public_html/wp-content/themes/storefront-child/woocommerce/single-product/add-to-cart/external.php
  * @param string $template_name Relative path to template. Example: single-product/add-to-cart/external.php
  * @param string $template_path Path to WooCommerce template files. Example: woocommerce/
  *
  * @return string Full path to template file.
+ * @since 1.2.28
+ *
+ * @global $woocommerce
+ *
  */
 function dfrpswc_override_woocommerce_template_files( $template, $template_name, $template_path ) {
 
