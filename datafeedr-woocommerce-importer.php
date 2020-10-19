@@ -11,7 +11,7 @@ Tested up to: 5.6-alpha
 Version: 1.2.48
 
 WC requires at least: 3.0
-WC tested up to: 4.5
+WC tested up to: 4.6
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2020, Datafeedr - help@datafeedr.com
@@ -140,11 +140,11 @@ function dfrpswc_not_compatible_with_dfrps() {
 			);
 			?>
 
-			<div class="error">
-				<p>
-					<strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
+            <div class="error">
+                <p>
+                    <strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
 
-					<br/>
+                    <br/>
 
 					<?php
 					_e(
@@ -153,7 +153,7 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-					<br/>
+                    <br/>
 
 					<?php
 					_e( 'Failure to upgrade will result in data loss. Please update your version of the <strong><em>Datafeedr Product Sets</em></strong> plugin now.',
@@ -161,13 +161,13 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-					<br/>
+                    <br/>
 
-					<a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
+                    <a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
 						<?php _e( 'Update Now', 'dfrpswc_integration' ); ?>
-					</a>
-				</p>
-			</div>
+                    </a>
+                </p>
+            </div>
 
 			<?php
 		}
@@ -209,7 +209,6 @@ function dfrpswc_unregister_cpt() {
 		dfrps_unregister_cpt( DFRPSWC_POST_TYPE );
 	}
 }
-
 
 /*******************************************************************
  * BUILD ADMIN OPTIONS PAGE
@@ -350,7 +349,6 @@ function dfrpswc_single_add_to_cart_text( $button_text, $product ) {
 add_filter( 'woocommerce_product_add_to_cart_text', 'dfrpswc_single_add_to_cart_text', 10, 2 );
 add_filter( 'woocommerce_product_single_add_to_cart_text', 'dfrpswc_single_add_to_cart_text', 10, 2 );
 
-
 /*******************************************************************
  * UPDATE FUNCTIONS
  *******************************************************************/
@@ -476,7 +474,6 @@ function dfrpswc_unset_post_categories( $obj ) {
 	 * that we don't process them again.
 	 */
 	$wpdb->query( "DELETE FROM $table_name WHERE uid='$uid'" );
-
 }
 
 /**
@@ -486,11 +483,6 @@ function dfrpswc_unset_post_categories( $obj ) {
 add_action( 'dfrps_action_do_products_' . DFRPSWC_POST_TYPE, 'dfrpswc_do_products', 10, 2 );
 function dfrpswc_do_products( $data, $set ) {
 
-	$use_new_dfrpswc_handle_product_function = boolval( apply_filters(
-		'use_new_dfrpswc_handle_product_function',
-		false
-	) );
-
 	// Check if there are products available.
 	if ( ! isset( $data['products'] ) || empty( $data['products'] ) ) {
 		return;
@@ -499,7 +491,7 @@ function dfrpswc_do_products( $data, $set ) {
 	// Loop thru products.
 	foreach ( $data['products'] as $product ) {
 
-		if ( $use_new_dfrpswc_handle_product_function ) {
+		if ( dfrpswc_feature_flag_is_enabled( 'product_update_handler' ) ) {
 			dfrpswc_upsert_product( $product, $set );
 			continue;
 		}
@@ -1328,7 +1320,6 @@ function dfrpswc_update_complete( $set ) {
 	wp_using_ext_object_cache( $use_cache );
 }
 
-
 /*******************************************************************
  * INSERT AFFILIATE ID INTO AFFILIATE LINK
  *******************************************************************/
@@ -1427,7 +1418,6 @@ function dfrpswc_add_affiliate_id_to_url( $external_link, $post_id ) {
 	return $external_link;
 }
 
-
 /*******************************************************************
  * ADD METABOX TO PRODUCT'S EDIT PAGE.
  *******************************************************************/
@@ -1469,7 +1459,6 @@ function dfrpswc_product_sets_relationships_metabox( $post, $box ) {
 		echo '<p>' . __( 'This product was not added by a Datafeedr Product Set.', DFRPSWC_DOMAIN ) . '</p>';
 	}
 }
-
 
 /*******************************************************************
  * WOOCOMMERCE HOOKS
@@ -1513,7 +1502,6 @@ function dfrpswc_add_home_depot_impression_url() {
 
 	echo '<img src="' . $impressionurl . '" width="1" height="1" border="0" />';
 }
-
 
 /*******************************************************************
  * MISCELLANEOUS FUNCTIONS
@@ -1772,7 +1760,6 @@ function dfrpswc_insert_ids_into_temp_table( $ids, $table_name ) {
 	return $ids;
 
 }
-
 
 /**
  * Returns true if plugin is installed, else returns false.

@@ -8,6 +8,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Returns true if a feature flag has been enabled. Otherwise returns false.
+ *
+ * @param string $feature Example: 'product_update_handler'
+ *
+ * @return bool
+ */
+function dfrpswc_feature_flag_is_enabled( string $feature ) {
+	$flags = dfrpswc_feature_flags();
+
+	return ! isset( $flags[ $feature ] ) ? false : boolval( $flags[ $feature ] );
+}
+
+/**
+ * Returns an array of all available feature flags as associative array.
+ *
+ * @return array
+ */
+function dfrpswc_feature_flags() {
+
+	$flags = [];
+
+	$flags['product_update_handler'] = boolval( apply_filters( 'dfrpswc_enable_product_update_handler_feature_flag', false ) );
+
+	return $flags;
+}
+
+/**
  * Inserts or Updates a Datafeedr product.
  *
  * @param array $dfr_product An array of Product Data from the Datafeedr API.
@@ -28,14 +55,15 @@ function dfrpswc_upsert_product( array $dfr_product, array $product_set ) {
 
 	$action = ( $existing_post && $existing_post['post_type'] == DFRPSWC_POST_TYPE ) ? 'update' : 'insert';
 
-	// @todo test to make sure a filter can cause an upsert to be skipped.
-	if ( apply_filters( 'dfrpswc_skip_product_upsert', false, $dfr_product, $product_set, $action ) ) {
-		return;
-	}
-
 	$type = apply_filters( 'dfrpswc_product_instance_type', 'external', $dfr_product, $product_set, $action );
 
-	$wc_product = dfrpswc_get_product_instance( $dfr_product['_id'], $type );
+	$wc_product = 'update' == $action
+		? wc_get_product( $existing_post['ID'] )
+		: dfrpswc_get_product_instance( $dfr_product['_id'], $type );
+
+	if ( ! $wc_product ) {
+		return;
+	}
 
 	if ( is_wp_error( $wc_product ) ) {
 		return;
@@ -65,7 +93,7 @@ function dfrpswc_get_product_instance( string $sku, $type = 'external' ) {
 	/** @var WC_Product $product Unsaved instance of WC_Product */
 	$product = dfrpswc_get_wc_product_object( $type );
 
-	// We're dealing with a new product, attempt to set the SKU and return or return WP_Error.
+	// We're dealing with a new product, attempt to set the SKU, save and return or return WP_Error.
 	try {
 		$product->set_sku( wc_clean( $sku ) );
 		$product->save();

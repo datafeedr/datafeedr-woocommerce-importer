@@ -86,13 +86,7 @@ class Dfrpswc_Product_Update_Handler {
 	 */
 	private function update_post_fields( array $post ) {
 		$fields = $this->get_wp_post_wc_product_field_method_map();
-		foreach ( $fields as $field => $handler ) {
-			$method    = sanitize_key( $handler['method'] );
-			$callbacks = $handler['callbacks'] ?? '';
-			if ( isset( $post[ $field ] ) && method_exists( $this->wc_product, $method ) ) {
-				$this->wc_product->{$method}( $this->handle_callbacks( $post[ $field ], $callbacks ) );
-			}
-		}
+		$this->update_product_props( $post, $fields );
 	}
 
 	/**
@@ -104,7 +98,7 @@ class Dfrpswc_Product_Update_Handler {
 	private function update_unhandled_post_fields() {
 		$unhandled_post_fields = array_diff_key( $this->post, $this->get_wp_post_wc_product_field_method_map() );
 		if ( ! empty( $unhandled_post_fields ) ) {
-			$unhandled_post_fields['ID'] = $this->post['ID'];
+			$unhandled_post_fields['ID'] = $this->wc_product->get_id();
 			wp_update_post( $unhandled_post_fields );
 		}
 	}
@@ -148,10 +142,22 @@ class Dfrpswc_Product_Update_Handler {
 			$this->action
 		);
 
-		$this->wc_product->add_meta_data( '_dfrps_product_set_id', absint( $this->product_set['ID'] ) );
-
+		$this->add_product_sku();
+		$this->add_product_set_id_meta_data();
 		$this->update_meta_fields( $meta );
 		$this->update_unhandled_meta_fields( $meta );
+	}
+
+	public function add_product_sku() {
+		try {
+			$this->wc_product->set_sku( wc_clean( $this->dfr_product['_id'] ) );
+		} catch ( WC_Data_Exception $e ) {
+
+		}
+	}
+
+	public function add_product_set_id_meta_data() {
+		$this->wc_product->add_meta_data( '_dfrps_product_set_id', absint( $this->product_set['ID'] ) );
 	}
 
 	/**
@@ -161,13 +167,7 @@ class Dfrpswc_Product_Update_Handler {
 	 */
 	private function update_meta_fields( array $meta ) {
 		$fields = $this->get_wp_postmeta_wc_product_field_method_map();
-		foreach ( $fields as $field => $handler ) {
-			$method    = sanitize_key( $handler['method'] );
-			$callbacks = $handler['callbacks'] ?? '';
-			if ( isset( $meta[ $field ] ) && method_exists( $this->wc_product, $method ) ) {
-				$this->wc_product->{$method}( $this->handle_callbacks( $meta[ $field ], $callbacks ) );
-			}
-		}
+		$this->update_product_props( $meta, $fields );
 	}
 
 	/**
@@ -187,6 +187,9 @@ class Dfrpswc_Product_Update_Handler {
 		}
 	}
 
+	/**
+	 * Update a product's taxonomies.
+	 */
 	public function update_taxonomies() {
 
 		if ( ! $this->post_is_valid() ) {
@@ -214,7 +217,11 @@ class Dfrpswc_Product_Update_Handler {
 		$this->update_unhandled_taxonomies( $taxonomies );
 	}
 
-	// Handle unhandled taxonomies
+	/**
+	 * Handle unhandled custom taxonomies (maybe "product_tag" or similar).
+	 *
+	 * @param array $taxonomies
+	 */
 	private function update_unhandled_taxonomies( array $taxonomies ) {
 		unset( $taxonomies[ DFRPSWC_TAXONOMY ] );
 
@@ -223,6 +230,9 @@ class Dfrpswc_Product_Update_Handler {
 		}
 	}
 
+	/**
+	 * Handles Global and Custom Product Attributes.
+	 */
 	public function update_attributes() {
 
 		if ( ! $this->post_is_valid() ) {
@@ -237,6 +247,13 @@ class Dfrpswc_Product_Update_Handler {
 		$this->wc_product->set_attributes( $attributes );
 	}
 
+	/**
+	 * Get all Global Attributes for the current product.
+	 *
+	 * Global attributes are taxonomy based and their slugs begin with "pa_".
+	 *
+	 * @return array
+	 */
 	private function get_global_attributes() {
 
 		$position   = 0;
@@ -277,6 +294,13 @@ class Dfrpswc_Product_Update_Handler {
 		return $attributes;
 	}
 
+	/**
+	 * Get all Custom Attributes for the current product.
+	 *
+	 * These are product-specific, not taxonomy-based.
+	 *
+	 * @return array
+	 */
 	private function get_custom_attributes() {
 
 		$position   = 0;
@@ -328,21 +352,45 @@ class Dfrpswc_Product_Update_Handler {
 		return $attributes;
 	}
 
-	private function filter_attribute_value( $value, $name ) {
+	/**
+	 * Applies filter to attribute value.
+	 *
+	 * @param mixed $value
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	private function filter_attribute_value( $value, string $name ) {
 		return apply_filters(
 			'dfrpswc_filter_attribute_value',
 			$value, $name, $this->post, $this->dfr_product, $this->product_set, $this->action
 		);
 	}
 
-	private function filter_attribute_visibility( $value, $name ) {
+	/**
+	 * Applies filter to attribute visibility.
+	 *
+	 * @param mixed $value
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	private function filter_attribute_visibility( $value, string $name ) {
 		return boolval( apply_filters(
 			'dfrpswc_filter_attribute_visibility',
 			$value, $name, $this->post, $this->dfr_product, $this->product_set, $this->action
 		) );
 	}
 
-	private function filter_attribute_variation( $value, $name ) {
+	/**
+	 * Applies filter to attribute variation.
+	 *
+	 * @param mixed $value
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	private function filter_attribute_variation( $value, string $name ) {
 		return boolval( apply_filters(
 			'dfrpswc_filter_attribute_variation',
 			$value, $name, $this->post, $this->dfr_product, $this->product_set, $this->action
@@ -403,11 +451,21 @@ class Dfrpswc_Product_Update_Handler {
 		$attribute_object->set_visible( $visible );
 		$attribute_object->set_variation( $variation );
 
+		/**
+		 * Hook to perform additional setter() methods.
+		 */
 		do_action( 'dfrpswc_set_attribute', $attribute_object, $this );
 
 		return $attribute_object;
 	}
 
+	/**
+	 * Explode a string on the WC_DELIMITER "|" delimiter.
+	 *
+	 * @param string $items
+	 *
+	 * @return array
+	 */
 	private function explode_on_wc_delimiter( string $items ) {
 		return explode( WC_DELIMITER, $items );
 	}
@@ -519,6 +577,9 @@ class Dfrpswc_Product_Update_Handler {
 	}
 
 	/**
+	 * Runs a value ($raw_value) through a single callback function (string) or
+	 * an array of callback functions.
+	 *
 	 * @param mixed $raw_value
 	 * @param string|array $callbacks
 	 *
@@ -555,5 +616,21 @@ class Dfrpswc_Product_Update_Handler {
 	 */
 	private function post_is_valid() {
 		return ( isset( $this->post['ID'] ) && absint( $this->post['ID'] ) > 0 );
+	}
+
+	/**
+	 * Updates a WooCommerce Product's data using one of WC's $product methods().
+	 *
+	 * @param array $data Either $post or $meta data.
+	 * @param array $fields An array of data from one of the "method_map" functions.
+	 */
+	private function update_product_props( array $data, array $fields ) {
+		foreach ( $fields as $field => $handler ) {
+			$method    = sanitize_key( $handler['method'] );
+			$callbacks = $handler['callbacks'] ?? '';
+			if ( isset( $data[ $field ] ) && method_exists( $this->wc_product, $method ) ) {
+				$this->wc_product->{$method}( $this->handle_callbacks( $data[ $field ], $callbacks ) );
+			}
+		}
 	}
 }
