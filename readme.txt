@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.6-alpha
-Stable tag: 1.2.49
+Tested up to: 5.6
+Stable tag: 1.2.50
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -110,10 +110,11 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 = Supported Affiliate Networks =
 The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchants from the following affiliate networks:
 
+1. **2Performant** (RO)
 1. **ADCELL** (DE)
 1. **Adrecord** (DK, FI, NO, SE)
 1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE)
-1. **AWIN** (AU, AT, BE, BR, CA, DK, FI, FR, DE, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
+1. **AWIN** (AU, AT, BE, BR, CA, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
 1. **Avangate** (US)
 1. **AvantLink** (AU, CA, US)
 1. **belboon** (DE, FR, NL, UK)
@@ -143,7 +144,6 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
 1. **TradeTracker** (AT, BE, BR, CH, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
 1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
-1. **Zanox** (BR)
 
 = Requirements =
 In order to use the Datafeedr WooCommerce Importer plugin you'll need a few things:
@@ -185,6 +185,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.50 - 2020/12/01 =
+* Bumping version for WordPress 5.6 support.
 
 = 1.2.49 - 2020/10/20 =
 * Rearranged some code.
