@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.6
-Stable tag: 1.2.50
+Tested up to: 5.7-alpha
+Stable tag: 1.2.51
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -112,6 +112,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 
 1. **2Performant** (RO)
 1. **ADCELL** (DE)
+1. **Admitad** (IN, RU, UA)
 1. **Adrecord** (DK, FI, NO, SE)
 1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE)
 1. **AWIN** (AU, AT, BE, BR, CA, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
@@ -135,7 +136,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Partner-ads** (DK)
 1. **Partnerize** (AU, BE, CA, DE, IT, NL, ES, UK, US)
 1. **PepperJam** (CA, UK, US)
-1. **Rakuten** (AU, BR, DE, UK, US)
+1. **Rakuten** (AU, BR, FR, DE, UK, US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
@@ -153,7 +154,7 @@ In order to use the Datafeedr WooCommerce Importer plugin you'll need a few thin
 * [Datafeedr Product Sets](https://wordpress.org/plugins/datafeedr-product-sets/) (free)
 * [Datafeedr API account](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrpswcplugin&utm_medium=referral&utm_source=wporg) (paid)
 * An account with 1 or more of the supported affiliate networks.
-* PHP 5.4 (or greater)
+* PHP Version 7.2 (or greater).
 * PHP's `CURL` support must be enabled.
 * WordPress Cron enabled.
 * 64MB of memory ([instructions](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP)).
@@ -185,6 +186,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.51 - 2021/01/20 =
+* Updated readme
+* Added support for WooCommerce 4.9
 
 = 1.2.50 - 2020/12/01 =
 * Bumping version for WordPress 5.6 support.

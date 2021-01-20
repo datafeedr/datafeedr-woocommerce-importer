@@ -8,13 +8,13 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.6
-Version: 1.2.50
+Version: 1.2.51
 
 WC requires at least: 3.0
-WC tested up to: 4.7
+WC tested up to: 4.9
 
 Datafeedr WooCommerce Importer plugin
-Copyright (C) 2020, Datafeedr - help@datafeedr.com
+Copyright (C) 2021, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.50' );
+define( 'DFRPSWC_VERSION', '1.2.51' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
