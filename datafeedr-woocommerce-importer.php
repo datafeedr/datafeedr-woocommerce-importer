@@ -232,16 +232,21 @@ function dfrpswc_admin_menu() {
 
 /**
  * Get current options or set default ones.
+ *
+ * @return array
  */
 function dfrpswc_get_options() {
-	$options = get_option( 'dfrpswc_options', array() );
-	if ( empty( $options ) ) {
-		$options                = array();
-		$options['button_text'] = __( 'Buy Now', DFRPSWC_DOMAIN );
-		update_option( 'dfrpswc_options', $options );
-	}
+	return array_merge( dfrpswc_get_default_options(), get_option( 'dfrpswc_options', array() ) );
+}
 
-	return $options;
+/**
+ * @return array
+ */
+function dfrpswc_get_default_options() {
+	return [
+		'button_text'  => 'Buy Now',
+		'format_price' => 'no',
+	];
 }
 
 /**
@@ -281,6 +286,14 @@ function dfrpswc_register_settings() {
 		'dfrpswc_options-page',
 		'dfrpswc_general_settings'
 	);
+
+	add_settings_field(
+		'dfrpswc_format_price',
+		__( 'Format Price', 'dfrpswc_integration' ),
+		'dfrpswc_format_price_field',
+		'dfrpswc_options-page',
+		'dfrpswc_general_settings'
+	);
 }
 
 /**
@@ -302,17 +315,42 @@ function dfrpswc_button_text_field() {
 }
 
 /**
+ * Format Price field.
+ */
+function dfrpswc_format_price_field() {
+	$options      = dfrpswc_get_options();
+	$value        = $options['format_price'];
+	$yes          = 'yes';
+	$no           = 'no';
+	$selected_yes = checked( $yes, $value, false );
+	$selected_no  = checked( $no, $value, false );
+	echo '<input type="radio" class="regular-text" name="dfrpswc_options[format_price]" value="' . esc_attr( $yes ) . '" ' . $selected_yes . ' /> ' . ucfirst( $yes );
+	echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="regular-text" name="dfrpswc_options[format_price]" value="' . esc_attr( $no ) . '" ' . $selected_no . ' /> ' . ucfirst( $no );
+	echo '<p class="description">';
+	echo __( 'Select "Yes" if you want to override the WooCommerce price formatter to format the price based on the product\'s currency code.', 'dfrpswc_integration' );
+	echo '<br/>';
+	echo __( 'Select "No" to let WooCommerce handle the formatting of prices.', 'dfrpswc_integration' );
+	echo '</p>';
+}
+
+/**
  * Validate user's input and save.
  */
 function dfrpswc_validate( $input ) {
+
 	if ( ! isset( $input ) || ! is_array( $input ) || empty( $input ) ) {
 		return $input;
 	}
 
 	$new_input = array();
 	foreach ( $input as $key => $value ) {
+
 		if ( $key == 'button_text' ) {
 			$new_input['button_text'] = trim( $value );
+		}
+
+		if ( $key == 'format_price' ) {
+			$new_input['format_price'] = $value === 'yes' ? 'yes' : 'no';
 		}
 	}
 
