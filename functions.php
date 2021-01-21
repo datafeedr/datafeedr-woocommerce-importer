@@ -126,3 +126,8 @@ function dfrpswc_get_wc_product_object( string $type ) {
 	}
 }
 
+function dfrpswc_int_to_price_with_two_decimal_places( $price ) {
+	$price = intval( $price );
+
+	return number_format( ( $price / 100 ), 2 );
+}

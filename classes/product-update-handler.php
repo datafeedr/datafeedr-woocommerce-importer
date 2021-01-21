@@ -143,11 +143,11 @@ class Dfrpswc_Product_Update_Handler {
 		}
 
 		if ( isset( $meta['_regular_price'] ) ) {
-			$this->wc_product->set_regular_price( dfrps_int_to_price( absint( $meta['_regular_price'] ) ) );
+			$this->wc_product->set_regular_price( dfrpswc_int_to_price_with_two_decimal_places( absint( $meta['_regular_price'] ) ) );
 		}
 
 		if ( isset( $meta['_sale_price'] ) ) {
-			$this->wc_product->set_sale_price( dfrps_int_to_price( absint( $meta['_sale_price'] ) ) );
+			$this->wc_product->set_sale_price( dfrpswc_int_to_price_with_two_decimal_places( absint( $meta['_sale_price'] ) ) );
 		}
 
 		$this->update_unhandled_meta_fields( $meta, [ '_product_url', '_regular_price', '_sale_price' ] );
