@@ -136,6 +136,7 @@ The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchan
 1. **Partner-ads** (DK)
 1. **Partnerize** (AU, BE, CA, DE, IT, NL, ES, UK, US)
 1. **PepperJam** (CA, UK, US)
+1. **Profitshare** (RO)
 1. **Rakuten** (AU, BR, FR, DE, UK, US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)

@@ -289,7 +289,7 @@ function dfrpswc_register_settings() {
 
 	add_settings_field(
 		'dfrpswc_format_price',
-		__( 'Format Price', 'dfrpswc_integration' ),
+		__( 'Format Prices', 'dfrpswc_integration' ),
 		'dfrpswc_format_price_field',
 		'dfrpswc_options-page',
 		'dfrpswc_general_settings'
