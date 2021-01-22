@@ -7,8 +7,8 @@ Author: datafeedr.com
 Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 5.6
-Version: 1.2.51
+Tested up to: 5.7-alpha
+Version: 1.2.52
 
 WC requires at least: 3.0
 WC tested up to: 4.9
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.51' );
+define( 'DFRPSWC_VERSION', '1.2.52' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -330,6 +330,8 @@ function dfrpswc_format_price_field() {
 	echo __( 'Select "Yes" if you want to override the WooCommerce price formatter to format the price based on the product\'s currency code.', 'dfrpswc_integration' );
 	echo '<br/>';
 	echo __( 'Select "No" to let WooCommerce handle the formatting of prices.', 'dfrpswc_integration' );
+	echo '<br/>';
+	echo __( 'If you import products with 2 or more different currencies (ie. USD and CAD), set this to "Yes".', 'dfrpswc_integration' );
 	echo '</p>';
 }
 

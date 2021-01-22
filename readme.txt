@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.7-alpha
-Stable tag: 1.2.51
+Stable tag: 1.2.52
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -187,6 +187,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.52 - 2021/01/22 =
+* Fixed issue where prices getting imported into WooCommerce would have the fraction part removed if fraction was "00".
+* Added Format Price option to "WC Importer" screen to take advantage of the new Dfrapi_Price and Dfrapi_Currency classes to format WooCommerce prices when importing products with multiple currencies.
 
 = 1.2.51 - 2021/01/20 =
 * Updated readme
