@@ -430,7 +430,7 @@ class Dfrpswc_Product_Update_Handler {
 		$variation = boolval( isset( $attribute['variation'] ) && $attribute['variation'] );
 		$options   = is_array( $attribute['options'] )
 			? $attribute['options']
-			: $this->explode_on_wc_delimiter( $attribute['options'] );
+			: $this->explode_on_wc_delimiter( (string) $attribute['options'] );
 
 		// Set $values based on either Global or Custom Attributes
 		$values = $attribute_id > 0
