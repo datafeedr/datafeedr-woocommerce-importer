@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.7-alpha
-Stable tag: 1.2.52
+Stable tag: 1.2.53
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -187,6 +187,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.53 - 2021/02/02 =
+* Added new `dfrpswc_post_status` filter to update handler.
 
 = 1.2.52 - 2021/01/22 =
 * Fixed issue where prices getting imported into WooCommerce would have the fraction part removed if fraction was "00".

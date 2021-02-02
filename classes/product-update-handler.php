@@ -71,7 +71,7 @@ class Dfrpswc_Product_Update_Handler {
 			'post_title'   => $this->dfr_product['name'] ?? '',
 			'post_content' => $this->dfr_product['description'] ?? '',
 			'post_excerpt' => $this->dfr_product['shortdescription'] ?? '',
-			'post_status'  => 'publish',
+			'post_status'  => apply_filters( 'dfrpswc_post_status', 'publish', $this ),
 			'post_author'  => absint( $this->product_set['post_author'] ?? 0 ),
 		];
 
@@ -80,7 +80,8 @@ class Dfrpswc_Product_Update_Handler {
 			$post,
 			$this->dfr_product,
 			$this->product_set,
-			$this->action
+			$this->action,
+			$this
 		);
 
 		$this->update_post_fields( $post );
