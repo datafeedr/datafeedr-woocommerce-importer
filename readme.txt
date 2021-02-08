@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.7-alpha
-Stable tag: 1.2.53
+Stable tag: 1.2.54
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -187,6 +187,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.54 - 2021/02/08 =
+* Added Site Health Info.
 
 = 1.2.53 - 2021/02/02 =
 * Added new `dfrpswc_post_status` filter to update handler.

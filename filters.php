@@ -137,3 +137,32 @@ function dfrpswc_woocommerce_get_price_html( string $price, WC_Product $product 
 }
 
 add_filter( 'woocommerce_get_price_html', 'dfrpswc_woocommerce_get_price_html', 11, 2 );
+
+/**
+ * Add Datafeedr WooCommerce Impoter Plugin's settings and configuration to the WordPress
+ * Site Health Info section (WordPress Admin Area > Tools > Site Health).
+ *
+ * @return array
+ */
+add_filter( 'debug_information', function ( $info ) {
+
+	$options = dfrpswc_get_options();
+
+	$info['datafeedr-woocommerce-importer-plugin'] = [
+		'label'       => __( 'Datafeedr WooCommerce Importer Plugin', 'dfrpswc_integration' ),
+		'description' => '',
+		'fields'      => [
+			'button_text'  => [
+				'label' => __( 'Button Text', 'dfrpswc_integration' ),
+				'value' => isset( $options['button_text'] ) && ! empty( $options['button_text'] ) ? $options['button_text'] : '—',
+			],
+			'format_price' => [
+				'label' => __( 'Format Prices', 'dfrpswc_integration' ),
+				'value' => isset( $options['format_price'] ) && ! empty( $options['format_price'] ) ? ucfirst( $options['format_price'] ) : '—',
+				'debug' => isset( $options['format_price'] ) && ! empty( $options['format_price'] ) ? $options['format_price'] : '—',
+			],
+		]
+	];
+
+	return $info;
+} );
