@@ -168,7 +168,7 @@ add_filter( 'debug_information', function ( $info ) {
 } );
 
 /**
- * Customize the image data before importing image into Media Library.
+ * Customize the featured image data before importing image into Media Library.
  *
  * @param array $args Array of args to use when adding image to Media Library.
  * @param string $url URL of image we are importing into the Media Library.
@@ -191,7 +191,7 @@ function dfrpswc_image_import_args( array $args, string $url, WP_Post $post ) {
 		'description'       => $product->get_name(),
 		'caption'           => $product->get_name(),
 		'alt_text'          => $product->get_name(),
-		'user_id'           => get_post_field( 'post_author', $product->get_id() ),
+		'user_id'           => dfrpswc_get_post_author_of_product_set_for_product( $product->get_id() ),
 		'is_post_thumbnail' => true,
 		'timeout'           => 5,
 		'_source_plugin'    => 'dfrpswc',

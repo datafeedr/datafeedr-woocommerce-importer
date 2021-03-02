@@ -131,3 +131,31 @@ function dfrpswc_int_to_price_with_two_decimal_places( $price ) {
 
 	return number_format( ( $price / 100 ), 2 );
 }
+
+/**
+ * Returns an array of Product Set IDs responsible for importing this product or an empty array
+ * if no Product Set IDs were found.
+ *
+ * @param int $product_id
+ *
+ * @return array
+ */
+function dfrpswc_get_product_set_ids_for_product( int $product_id ) {
+	$set_ids = get_post_meta( $product_id, '_dfrps_product_set_id' );
+
+	return array_unique( array_filter( $set_ids ) );
+}
+
+/**
+ * Returns the post_author field for the Product Set which imported the $product_id
+ * or returns 0 if a Product Set is not found.
+ *
+ * @param int $product_id
+ *
+ * @return int Author ID or 0 if Product Set was not found.
+ */
+function dfrpswc_get_post_author_of_product_set_for_product( int $product_id ) {
+	$set_ids = dfrpswc_get_product_set_ids_for_product( $product_id );
+
+	return ! empty( $set_ids ) ? absint( get_post_field( 'post_author', $set_ids[0] ) ) : 0;
+}
