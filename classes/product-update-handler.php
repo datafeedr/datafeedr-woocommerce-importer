@@ -182,8 +182,16 @@ class Dfrpswc_Product_Update_Handler {
 	 */
 	private function update_unhandled_meta_fields( array $meta, array $ignore = [] ) {
 		foreach ( $meta as $k => $v ) {
-			$key   = sanitize_key( $k );
-			$value = is_string( $v ) ? sanitize_text_field( $v ) : $v;
+			$key = sanitize_key( $k );
+
+			if ( is_string( $v ) ) {
+				$value = dfrapi_starts_with( $v, [ 'http', 'https' ] )
+					? esc_url_raw( $v )
+					: sanitize_text_field( $v );
+			} else {
+				$value = $v;
+			}
+
 			if ( ! in_array( $key, $ignore ) ) {
 				$this->wc_product->update_meta_data( $key, $value );
 			}

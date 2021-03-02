@@ -166,3 +166,38 @@ add_filter( 'debug_information', function ( $info ) {
 
 	return $info;
 } );
+
+/**
+ * Customize the image data before importing image into Media Library.
+ *
+ * @param array $args Array of args to use when adding image to Media Library.
+ * @param string $url URL of image we are importing into the Media Library.
+ * @param WP_Post $post
+ *
+ * @return array
+ */
+function dfrpswc_image_import_args( array $args, string $url, WP_Post $post ) {
+
+	$product = wc_get_product( $post->ID );
+
+	if ( ! $product ) {
+		return $args;
+	}
+
+	$args = [
+		'title'             => $product->get_name(),
+		'file_name'         => $product->get_name(),
+		'post_id'           => $product->get_id(),
+		'description'       => $product->get_name(),
+		'caption'           => $product->get_name(),
+		'alt_text'          => $product->get_name(),
+		'user_id'           => get_post_field( 'post_author', $product->get_id() ),
+		'is_post_thumbnail' => true,
+		'timeout'           => 5,
+		'_source_plugin'    => 'dfrpswc',
+	];
+
+	return apply_filters( 'dfrpswc_image_import_args', $args, $url, $post );
+}
+
+add_filter( 'dfrps_import_post_thumbnail/args', 'dfrpswc_image_import_args', 10, 3 );
