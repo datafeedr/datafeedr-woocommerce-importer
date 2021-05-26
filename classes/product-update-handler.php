@@ -68,6 +68,7 @@ class Dfrpswc_Product_Update_Handler {
 		}
 
 		$post = [
+			'ID'           => $this->wc_product->get_id(),
 			'post_title'   => $this->dfr_product['name'] ?? '',
 			'post_content' => $this->dfr_product['description'] ?? '',
 			'post_excerpt' => $this->dfr_product['shortdescription'] ?? '',

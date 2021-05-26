@@ -6,8 +6,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import dat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 5.7-RC1
-Stable tag: 1.2.55
+Tested up to: 5.8-alpha
+Stable tag: 1.2.56
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -187,6 +187,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.56 - 2021/05/26 =
+* Fixed `$post` array items in new update handler.
 
 = 1.2.55 - 2021/03/02 =
 * Fixed featured image url escaping.
