@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 5.9-alpha
-Stable tag: 1.2.57
+Stable tag: 1.2.58
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -189,6 +189,12 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.58 - 2021/08/16 =
+* Added new setting to configure `rel` attribute for [Buy] buttons on Loop pages. (WordPress Admin Area > Product Sets > WC Importer)
+* Added new setting to configure `rel` attribute for [Buy] buttons on Single Product pages. (WordPress Admin Area > Product Sets > WC Importer)
+* Added new setting to configure `target` attribute for [Buy] buttons on Loop pages. (WordPress Admin Area > Product Sets > WC Importer)
+* Added new setting to configure `target` attribute for [Buy] buttons on Single Product pages. (WordPress Admin Area > Product Sets > WC Importer)
 
 = 1.2.57 - 2021/07/27 =
 * Updated readme and version support.

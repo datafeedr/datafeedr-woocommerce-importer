@@ -201,3 +201,79 @@ function dfrpswc_image_import_args( array $args, string $url, WP_Post $post ) {
 }
 
 add_filter( 'dfrps_import_post_thumbnail/args', 'dfrpswc_image_import_args', 10, 3 );
+
+/**
+ * Set the rel attribute for the Buy Button on Single Product Pages.
+ *
+ * @param string $rel
+ * @param string $product_type
+ *
+ * @return string
+ *
+ * @since 1.2.58
+ */
+function dfrpswc_single_product_button_rel( string $rel, string $product_type ) {
+	return ( $product_type === 'external' )
+		? dfrpswc_get_option( 'rel_single', 'nofollow' )
+		: $rel;
+}
+
+add_filter( 'dfrpswc_single_product_add_to_cart_button_rel', 'dfrpswc_single_product_button_rel', 10, 2 );
+
+/**
+ * Set the rel attribute for the Buy Button in the Loop.
+ *
+ * @param array $args
+ * @param WC_Product $product
+ *
+ * @return array
+ *
+ * @since 1.2.58
+ */
+function dfrpswc_loop_button_rel( array $args, WC_Product $product ) {
+	if ( $product->is_type( 'external' ) ) {
+		$args['attributes']['rel'] = dfrpswc_get_option( 'rel_loop', 'nofollow' );
+	}
+
+	return $args;
+}
+
+add_filter( 'woocommerce_loop_add_to_cart_args', 'dfrpswc_loop_button_rel', 10, 2 );
+
+/**
+ * Set the target attribute for the Buy Button on Single Product Pages.
+ *
+ * @param string $rel
+ * @param string $product_type
+ *
+ * @return string
+ *
+ * @since 1.2.58
+ */
+function dfrpswc_single_product_button_target( string $target, string $product_type ) {
+	return ( $product_type === 'external' )
+		? dfrpswc_get_option( 'target_single', '_blank' )
+		: $target;
+}
+
+add_filter( 'dfrpswc_single_product_add_to_cart_button_target', 'dfrpswc_single_product_button_target', 10, 2 );
+
+/**
+ * Set the target attribute for the Buy Button in the Loop.
+ *
+ * @param array $args
+ * @param WC_Product $product
+ *
+ * @return array
+ *
+ * @since 1.2.58
+ */
+function dfrpswc_loop_button_target( array $args, WC_Product $product ) {
+	if ( $product->is_type( 'external' ) ) {
+		$args['attributes']['target'] = dfrpswc_get_option( 'target_loop', '_blank' );
+	}
+
+	return $args;
+}
+
+add_filter( 'woocommerce_loop_add_to_cart_args', 'dfrpswc_loop_button_target', 10, 2 );

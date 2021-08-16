@@ -8,7 +8,7 @@ Author URI: https://www.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 5.9-alpha
-Version: 1.2.57
+Version: 1.2.58
 
 WC requires at least: 3.0
 WC tested up to: 5.5
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.57' );
+define( 'DFRPSWC_VERSION', '1.2.58' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -239,13 +239,23 @@ function dfrpswc_get_options() {
 	return array_merge( dfrpswc_get_default_options(), get_option( 'dfrpswc_options', array() ) );
 }
 
+function dfrpswc_get_option( string $key, $default = '' ) {
+	$options = dfrpswc_get_options();
+
+	return $options[ $key ] ?? $default;
+}
+
 /**
  * @return array
  */
 function dfrpswc_get_default_options() {
 	return [
-		'button_text'  => 'Buy Now',
-		'format_price' => 'no',
+		'button_text'   => 'Buy Now',
+		'format_price'  => 'no',
+		'rel_single'    => 'nofollow',
+		'rel_loop'      => 'nofollow',
+		'target_single' => '_blank',
+		'target_loop'   => '_blank',
 	];
 }
 
@@ -279,12 +289,11 @@ function dfrpswc_register_settings() {
 		'dfrpswc_options-page'
 	);
 
-	add_settings_field(
-		'dfrpswc_button_text',
-		__( 'Button Text', 'dfrpswc_integration' ),
-		'dfrpswc_button_text_field',
-		'dfrpswc_options-page',
-		'dfrpswc_general_settings'
+	add_settings_section(
+		'dfrpswc_button_settings',
+		__( 'Buy Button Settings', 'dfrpswc_integration' ),
+		'dfrpswc_button_settings_section',
+		'dfrpswc_options-page'
 	);
 
 	add_settings_field(
@@ -294,12 +303,56 @@ function dfrpswc_register_settings() {
 		'dfrpswc_options-page',
 		'dfrpswc_general_settings'
 	);
+
+	add_settings_field(
+		'dfrpswc_button_text',
+		__( 'Button Text', 'dfrpswc_integration' ),
+		'dfrpswc_button_text_field',
+		'dfrpswc_options-page',
+		'dfrpswc_button_settings'
+	);
+
+	add_settings_field(
+		'dfrpswc_rel_loop',
+		__( 'Loop Page <code>rel</code>', 'dfrpswc_integration' ),
+		'dfrpswc_format_rel_loop_field',
+		'dfrpswc_options-page',
+		'dfrpswc_button_settings'
+	);
+
+	add_settings_field(
+		'dfrpswc_rel_single',
+		__( 'Single Product Page <code>rel</code>', 'dfrpswc_integration' ),
+		'dfrpswc_format_rel_single_field',
+		'dfrpswc_options-page',
+		'dfrpswc_button_settings'
+	);
+
+	add_settings_field(
+		'dfrpswc_target_loop',
+		__( 'Loop Page <code>target</code>', 'dfrpswc_integration' ),
+		'dfrpswc_format_target_loop_field',
+		'dfrpswc_options-page',
+		'dfrpswc_button_settings'
+	);
+
+	add_settings_field(
+		'dfrpswc_target_single',
+		__( 'Single Product Page <code>target</code>', 'dfrpswc_integration' ),
+		'dfrpswc_format_target_single_field',
+		'dfrpswc_options-page',
+		'dfrpswc_button_settings'
+	);
 }
 
 /**
  * General settings section description.
  */
 function dfrpswc_general_settings_section() {
+	//echo __( 'General settings for importing products into your WooCommerce store.', DFRPSWC_DOMAIN );
+}
+
+function dfrpswc_button_settings_section() {
 	//echo __( 'General settings for importing products into your WooCommerce store.', DFRPSWC_DOMAIN );
 }
 
@@ -336,6 +389,50 @@ function dfrpswc_format_price_field() {
 }
 
 /**
+ * Set the rel attribute for the buy button on the single product page.
+ */
+function dfrpswc_format_rel_single_field() {
+	$options = dfrpswc_get_options();
+	echo '<input type="text" class="regular-text" name="dfrpswc_options[rel_single]" value="' . esc_attr( $options['rel_single'] ) . '" />';
+	echo '<p class="description">';
+	echo __( 'Set the <code>rel</code> attribute for the buy button on the single product page.', 'dfrpswc_integration' );
+	echo '</p>';
+}
+
+/**
+ * Set the rel attribute for the buy button on the loop pages (shop, category, archive, etc...)
+ */
+function dfrpswc_format_rel_loop_field() {
+	$options = dfrpswc_get_options();
+	echo '<input type="text" class="regular-text" name="dfrpswc_options[rel_loop]" value="' . esc_attr( $options['rel_loop'] ) . '" />';
+	echo '<p class="description">';
+	echo __( 'Set the <code>rel</code> attribute for the buy button on the loop pages (shop, category, archive, etc...).', 'dfrpswc_integration' );
+	echo '</p>';
+}
+
+/**
+ * Set the target attribute for the buy button on the single product page.
+ */
+function dfrpswc_format_target_single_field() {
+	$options = dfrpswc_get_options();
+	echo '<input type="text" class="regular-text" name="dfrpswc_options[target_single]" value="' . esc_attr( $options['target_single'] ) . '" />';
+	echo '<p class="description">';
+	echo __( 'Set the <code>target</code> attribute for the buy button on the single product page. <a href="https://www.w3schools.com/tags/att_a_target.asp" target="_blank" rel="noopener">Valid Options</a>.', 'dfrpswc_integration' );
+	echo '</p>';
+}
+
+/**
+ * Set the target attribute for the buy button on the loop pages (shop, category, archive, etc...)
+ */
+function dfrpswc_format_target_loop_field() {
+	$options = dfrpswc_get_options();
+	echo '<input type="text" class="regular-text" name="dfrpswc_options[target_loop]" value="' . esc_attr( $options['target_loop'] ) . '" />';
+	echo '<p class="description">';
+	echo __( 'Set the <code>target</code> attribute for the buy button on the loop pages (shop, category, archive, etc...). <a href="https://www.w3schools.com/tags/att_a_target.asp" target="_blank" rel="noopener">Valid Options</a>.', 'dfrpswc_integration' );
+	echo '</p>';
+}
+
+/**
  * Validate user's input and save.
  */
 function dfrpswc_validate( $input ) {
@@ -347,12 +444,32 @@ function dfrpswc_validate( $input ) {
 	$new_input = array();
 	foreach ( $input as $key => $value ) {
 
-		if ( $key == 'button_text' ) {
+		if ( $key === 'button_text' ) {
 			$new_input['button_text'] = trim( $value );
 		}
 
-		if ( $key == 'format_price' ) {
+		if ( $key === 'format_price' ) {
 			$new_input['format_price'] = $value === 'yes' ? 'yes' : 'no';
+		}
+
+		if ( $key === 'rel_single' ) {
+			$rel_single              = trim( $value );
+			$new_input['rel_single'] = ! empty( $rel_single ) ? $rel_single : 'nofollow';
+		}
+
+		if ( $key === 'rel_loop' ) {
+			$rel_loop              = trim( $value );
+			$new_input['rel_loop'] = ! empty( $rel_loop ) ? $rel_loop : 'nofollow';
+		}
+
+		if ( $key === 'target_single' ) {
+			$target_single              = trim( $value );
+			$new_input['target_single'] = ! empty( $target_single ) ? $target_single : '_blank';
+		}
+
+		if ( $key === 'target_loop' ) {
+			$target_loop              = trim( $value );
+			$new_input['target_loop'] = ! empty( $target_loop ) ? $target_loop : '_blank';
 		}
 	}
 

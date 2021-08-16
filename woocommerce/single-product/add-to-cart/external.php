@@ -21,12 +21,15 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
-<?php $target = apply_filters( 'dfrpswc_single_product_add_to_cart_button_target', '_blank', 'external' ); ?>
+<?php
+$target = apply_filters( 'dfrpswc_single_product_add_to_cart_button_target', '_blank', 'external' );
+$rel    = apply_filters( 'dfrpswc_single_product_add_to_cart_button_rel', 'nofollow', 'external' );
+?>
 
 <p class="cart">
     <a href="<?php echo esc_url( $product_url ); ?>"
-       rel="nofollow"
-       target="<?php echo esc_attr( $target ); ?>"
+       rel="<?php esc_attr_e( $rel ); ?>"
+       target="<?php esc_attr_e( $target ); ?>"
        class="single_add_to_cart_button button alt"><?php echo esc_html( $button_text ); ?></a>
 </p>
 
