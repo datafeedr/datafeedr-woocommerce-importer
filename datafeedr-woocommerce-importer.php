@@ -5,16 +5,18 @@ Plugin URI: https://www.datafeedr.com
 Description: Import products from the Datafeedr Product Sets plugin into your WooCommerce store. <strong>REQUIRES: </strong><a href="http://wordpress.org/plugins/datafeedr-api/">Datafeedr API plugin</a>, <a href="http://wordpress.org/plugins/datafeedr-product-sets/">Datafeedr Product Sets plugin</a>, <a href="http://wordpress.org/plugins/woocommerce/">WooCommerce</a> (v3.0+).
 Author: datafeedr.com
 Author URI: https://www.datafeedr.com
+Text Domain: dfrpswc_integration
 License: GPL v3
+Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 5.9-alpha
-Version: 1.2.58
+Tested up to: 6.0-alpha
+Version: 1.2.59
 
 WC requires at least: 3.0
-WC tested up to: 5.5
+WC tested up to: 6.2
 
 Datafeedr WooCommerce Importer plugin
-Copyright (C) 2021, Datafeedr - help@datafeedr.com
+Copyright (C) 2022, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.2.58' );
+define( 'DFRPSWC_VERSION', '1.2.59' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -60,6 +62,37 @@ require_once dirname( __FILE__ ) . '/classes/attribute-importer.php';
 require_once dirname( __FILE__ ) . '/classes/product-update-handler.php';
 require_once dirname( __FILE__ ) . '/actions.php';
 require_once dirname( __FILE__ ) . '/filters.php';
+
+/**
+ * Compatibility Check.
+ *
+ * @param bool $network_wide
+ *
+ * @return void
+ */
+function dfrpswc_register_activation( bool $network_wide ) {
+
+	// Check that minimum WordPress requirement has been met.
+	$version = get_bloginfo( 'version' );
+	if ( version_compare( $version, '3.8', '<' ) ) {
+		deactivate_plugins( DFRPSWC_BASENAME );
+		wp_die( __(
+			'The Datafeedr WooCommerce Importer Plugin could not be activated because it requires WordPress version 3.8 or greater. Please upgrade your installation of WordPress.',
+			'dfrpswc_integration'
+		) );
+	}
+
+	// Check that plugin is not being activated at the Network level on Multisite sites.
+	if ( $network_wide && is_multisite() ) {
+		deactivate_plugins( DFRPSWC_BASENAME );
+		wp_die( __(
+			'The Datafeedr WooCommerce Importer Plugin cannot be activated at the Network-level. Please activate the Datafeedr WooCommerce Importer Plugin at the Site-level instead.',
+			'dfrpswc_integration'
+		) );
+	}
+}
+
+register_activation_hook( __FILE__, 'dfrpswc_register_activation' );
 
 /*******************************************************************
  * ADMIN NOTICES

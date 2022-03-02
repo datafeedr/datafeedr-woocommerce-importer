@@ -5,9 +5,10 @@ Donate link: https://www.datafeedr.com/
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import datafeed, import data feed, data feed, datafeed, import affiliate products
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 5.9-alpha
-Stable tag: 1.2.58
+Tested up to: 6.0-alpha
+Stable tag: 1.2.59
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -35,13 +36,13 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 = Features =
 36 reasons why you'll LOVE our plugin!
 
-* **450+ Million Products** - Access our massive database of affiliate products.
+* **750+ Million Products** - Access our massive database of affiliate products.
 
-* **13,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
+* **22,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
 
-* **30+ Affiliate Networks** - Choose from the largest affiliate networks. (See full list below.)
+* **35+ Affiliate Networks** - Choose from the largest affiliate networks. (See full list below.)
 
-* **20 Countries** - Import products from Australia, Belgium, Brazil, Canada, Denmark, Finland, France, Germany, Ireland, India, Italy, Netherlands, New Zealand, Norway, Poland, Spain, Sweden, Switzerland, the United Kingdom & the United States.
+* **30+ Countries** - Import products from Australia, Belgium, Brazil, Canada, Denmark, Finland, France, Germany, Ireland, India, Italy, Netherlands, New Zealand, Norway, Poland, Spain, Sweden, Switzerland, the United Kingdom & the United States.
 
 * **Unlimited Websites** - Import products into as many websites as you want.
 
@@ -51,7 +52,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 
 * **Easy-to-use Interface** - Create an affiliate store in just a few minutes!
 
-* **NO Datafeeds** - No need to download, import and parse large, unorganized CSV or XML files. Datafeedr does all of that for you!
+* **NO Data Feeds** - No need to download, import and parse large, unorganized CSV or XML files. Datafeedr does all of that for you!
 
 * **Powerful Product Search** - Search across multiple affiliate networks and merchants simultaneously. Filter products by name, description, network, merchant, brand, price, sale price, discount percentage, currency, sale status and more.
 
@@ -108,71 +109,82 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 * **Any Plan, All Features** - Every feature we offer is available with every plan.
 
 = Supported Affiliate Networks =
-The Datafeedr WooCommerce Importer plugin currently supports over 12,000 merchants from the following affiliate networks:
+The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 merchants from the following 30+ affiliate networks](https://www.datafeedr.me/networks/):
 
 1. **2Performant** (RO)
 1. **ADCELL** (DE)
 1. **Admitad** (IN, RU, UA)
 1. **Adrecord** (DK, FI, NO, SE)
-1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE)
-1. **AWIN** (AU, AT, BE, BR, CA, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
+1. **Adservice** (DK, FI, NO, SE)
+1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE, UK)
 1. **Avangate** (US)
 1. **AvantLink** (AU, CA, US)
-1. **belboon** (DE, FR, NL, UK)
+1. **AWIN** (AU, AT, BE, BR, CA, CZ, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
+1. **belboon** (DE, FR, NL, ES, PT, UK)
 1. **Betty Mills** (US)
 1. **bol.com** (BE, NL)
 1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
 1. **Commission Factory** (AU)
-1. **Commission Junction** (BR, CA, FR, DE, NL, ES, SE, UK, US)
-1. **Daisycon** (BE, DK, FI, DE, IT, FR, NL, NO, ES, SE)
+1. **Commission Junction** (BR, CA, FR, DE, NL, PO, ES, SE, UK, US)
+1. **Daisycon** (BE, DK, FI, DE, IT, FR, NL, NO, ES, SE, UK)
 1. **Digital Advisor** (DK, FI, NO, SE)
 1. **Effiliation** (FR, DE, ES)
 1. **FlexOffers** (US)
-1. **GoAffPro** (UK)
-1. **Impact Radius** (AU, NL, UK, US)
+1. **GoAffPro** (AU, UK)
+1. **Impact** (AU, NL, UK, US)
 1. **LinkConnector** (US)
 1. **oneNetworkDirect** (DE, UK, US)
 1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
-1. **Partner-ads** (DK)
-1. **Partnerize** (AU, BE, CA, DE, IT, NL, ES, UK, US)
+1. **Partner-ads** (DK, NO, SE)
+1. **Partnerize** (AU, BE, CA, DE, IR, IT, NL, ES, UK, US)
 1. **PepperJam** (CA, UK, US)
 1. **Profitshare** (RO)
-1. **Rakuten** (AU, BR, FR, DE, UK, US)
+1. **Rakuten** (AU, BR, CA, FR, DE, UK, US)
 1. **RevResponse** (US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
 1. **SuperClix** (DE)
 1. **The Affiliate Gateway** (UK)
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
-1. **TradeTracker** (AT, BE, BR, CH, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
-1. **Webgains** (DE, ES, FR, IR, NL, NO, SE, UK, US)
+1. **TradeTracker** (AT, BE, BR, CH, CZ, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
+1. **Webgains** (DE, DK, ES, FR, IR, IT, NL, NO, SE, UK, US)
 
 = Requirements =
 In order to use the Datafeedr WooCommerce Importer plugin you'll need a few things:
 
+* PHP 7.4 or greater
+* MySQL version 5.6 or greater
+* [WordPress memory limit of 256 MB or greater](https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP)
+* PHP's `CURL` enabled
+* WordPress Cron enabled
+* [HTTPS support](https://wordpress.org/news/2016/12/moving-toward-ssl/)
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/) (free)
 * [Datafeedr API](https://wordpress.org/plugins/datafeedr-api/) (free)
 * [Datafeedr Product Sets](https://wordpress.org/plugins/datafeedr-product-sets/) (free)
 * [Datafeedr API account](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrpswcplugin&utm_medium=referral&utm_source=wporg) (paid)
-* An account with 1 or more of the supported affiliate networks.
-* PHP Version 7.2 (or greater).
-* PHP's `CURL` support must be enabled.
-* WordPress Cron enabled.
-* 64MB of memory ([instructions](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP)).
+* An account with one or more [affiliate networks we support](https://datafeedr.me/networks)
 
 = Support =
+
 Our [documentation](https://datafeedrapi.helpscoutdocs.com/?utm_campaign=dfrpswcplugin&utm_medium=referral&utm_source=wporg) is available for all of our customers.
+
+Check out the [Datafeedr WooCommerce Importer Set-up Guide
+](https://datafeedrapi.helpscoutdocs.com/article/109-datafeedr-woocommerce-importer-set-up-guide).
 
 = Videos =
 Demonstration of a website using the Datafeedr WooCommerce Importer plugin.
 
-[youtube http://www.youtube.com/watch?v=PdlxcMY_sIQ]
+[youtube https://www.youtube.com/watch?v=PdlxcMY_sIQ]
+
+Webinar with Fanatics showing a full website build!
+
+[youtube https://www.youtube.com/watch?v=nruguyaxOtA]
 
 How to set-up the Datafeedr WooCommerce Importer plugin.
 
-[youtube http://www.youtube.com/watch?v=A4j7bwL9v-E]
+[youtube https://www.youtube.com/watch?v=A4j7bwL9v-E]
 
 = Questions = 
 Have questions about our plugin?  Feel free to [contact us](https://datafeedrapi.helpscoutdocs.com/contact?utm_campaign=dfrpswcplugin&utm_medium=referral&utm_source=wporg).
@@ -189,6 +201,12 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.2.59 - 2022/03/02 =
+* Added a minimum WordPress version check to the `register_activation_hook`
+* Added a Multisite check to the `register_activation_hook` to ensure that plugin can only be activated at Site-Level, not Network-Level
+* Added "Requires PHP: 7.4" to plugin headers
+* Updated stats and numbers in readme.txt file
 
 = 1.2.58 - 2021/08/16 =
 * Added new setting to configure `rel` attribute for [Buy] buttons on Loop pages. (WordPress Admin Area > Product Sets > WC Importer)
