@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return bool
  */
-function dfrpswc_feature_flag_is_enabled( string $feature ) {
+function dfrpswc_feature_flag_is_enabled( string $feature ): bool {
 	$flags = dfrpswc_feature_flags();
 
-	return ! isset( $flags[ $feature ] ) ? false : boolval( $flags[ $feature ] );
+	return isset( $flags[ $feature ] ) && $flags[ $feature ];
 }
 
 /**
@@ -25,11 +25,11 @@ function dfrpswc_feature_flag_is_enabled( string $feature ) {
  *
  * @return array
  */
-function dfrpswc_feature_flags() {
+function dfrpswc_feature_flags(): array {
 
 	$flags = [];
 
-	$flags['product_update_handler'] = boolval( apply_filters( 'dfrpswc_enable_product_update_handler_feature_flag', false ) );
+	$flags['product_update_handler'] = (bool) apply_filters( 'dfrpswc_enable_product_update_handler_feature_flag', true );
 
 	return $flags;
 }
