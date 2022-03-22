@@ -238,7 +238,7 @@ class Dfrpswc_Product_Update_Handler {
 		unset( $taxonomies[ DFRPSWC_TAXONOMY ] );
 
 		foreach ( $taxonomies as $taxonomy => $terms ) {
-			wp_set_post_terms( $this->post['ID'], $terms, $taxonomy, false );
+			wp_set_post_terms( $this->post['ID'], $terms, $taxonomy );
 		}
 	}
 
@@ -266,7 +266,7 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return array
 	 */
-	private function get_global_attributes() {
+	private function get_global_attributes(): array {
 
 		$position   = 0;
 		$attributes = [];
@@ -313,7 +313,7 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return array
 	 */
-	private function get_custom_attributes() {
+	private function get_custom_attributes(): array {
 
 		$position   = 0;
 		$attributes = [];
@@ -336,7 +336,7 @@ class Dfrpswc_Product_Update_Handler {
 
 		foreach ( $product_attributes as $product_attribute ) {
 
-			if ( isset( $product_attribute['is_taxonomy'] ) && boolval( $product_attribute['is_taxonomy'] ) ) {
+			if ( isset( $product_attribute['is_taxonomy'] ) && (bool) $product_attribute['is_taxonomy'] ) {
 				continue;
 			}
 
@@ -387,11 +387,11 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return bool
 	 */
-	private function filter_attribute_visibility( $value, string $name ) {
-		return boolval( apply_filters(
+	private function filter_attribute_visibility( $value, string $name ): bool {
+		return (bool) apply_filters(
 			'dfrpswc_filter_attribute_visibility',
 			$value, $name, $this->post, $this->dfr_product, $this->product_set, $this->action
-		) );
+		);
 	}
 
 	/**
@@ -402,11 +402,11 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return bool
 	 */
-	private function filter_attribute_variation( $value, string $name ) {
-		return boolval( apply_filters(
+	private function filter_attribute_variation( $value, string $name ): bool {
+		return (bool) apply_filters(
 			'dfrpswc_filter_attribute_variation',
 			$value, $name, $this->post, $this->dfr_product, $this->product_set, $this->action
-		) );
+		);
 	}
 
 	/**
@@ -434,10 +434,9 @@ class Dfrpswc_Product_Update_Handler {
 			return null;
 		}
 
-		$values    = null;
 		$position  = absint( $attribute['position'] ?? 0 );
-		$visible   = boolval( isset( $attribute['visible'] ) && $attribute['visible'] );
-		$variation = boolval( isset( $attribute['variation'] ) && $attribute['variation'] );
+		$visible   = isset( $attribute['visible'] ) && $attribute['visible'];
+		$variation = isset( $attribute['variation'] ) && $attribute['variation'];
 		$options   = is_array( $attribute['options'] )
 			? $attribute['options']
 			: $this->explode_on_wc_delimiter( (string) $attribute['options'] );
@@ -478,7 +477,7 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return array
 	 */
-	private function explode_on_wc_delimiter( string $items ) {
+	private function explode_on_wc_delimiter( string $items ): array {
 		return explode( WC_DELIMITER, $items );
 	}
 
@@ -487,7 +486,7 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return array
 	 */
-	private function get_wp_post_wc_product_field_method_map() {
+	private function get_wp_post_wc_product_field_method_map(): array {
 		return apply_filters( 'dfrpswc_wp_post_wc_product_field_method_map', [
 			'post_title'     => [
 				'method'    => 'set_name',
@@ -539,7 +538,7 @@ class Dfrpswc_Product_Update_Handler {
 	/**
 	 * @return int Product ID.
 	 */
-	public function save_product() {
+	public function save_product(): int {
 		return $this->wc_product->save();
 	}
 
@@ -581,7 +580,7 @@ class Dfrpswc_Product_Update_Handler {
 	 *
 	 * @return bool
 	 */
-	private function post_is_valid() {
+	private function post_is_valid(): bool {
 		return ( isset( $this->post['ID'] ) && absint( $this->post['ID'] ) > 0 );
 	}
 

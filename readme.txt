@@ -132,7 +132,7 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **Effiliation** (FR, DE, ES)
 1. **FlexOffers** (US)
 1. **GoAffPro** (AU, UK)
-1. **Impact** (AU, NL, UK, US)
+1. **Impact** (AU, CA, NL, UK, US)
 1. **LinkConnector** (US)
 1. **oneNetworkDirect** (DE, UK, US)
 1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
