@@ -327,7 +327,8 @@ function dfrpswc_import_custom_attribute( array $attributes, array $post, array 
 			continue;
 		}
 
-		$value = dfrapi_get_product_fields( $dfr_product, $fields, $default, $concatenate );
+//		$value = dfrapi_get_product_fields( $dfr_product, $fields, $default, $concatenate );
+		$value = dfrapi_get_fields_from_product( $dfr_product, $fields, $default, $concatenate );
 
 		if ( $value !== null ) {
 			$attributes[] = [
