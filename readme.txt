@@ -8,7 +8,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
 Tested up to: 6.0-alpha
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -201,6 +201,13 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.1 - 2022/04/06 =
+* Removed unnecessary arguments from function calls.
+* Added return values to methods.
+* Changed boolval() to (bool) or removed altogether (where applicable)
+* Updated doc blocks in filters.php
+* Updated Impact in readme.
 
 = 1.3.0 - 2022/03/07 =
 * Changed default value of `dfrpswc_enable_product_update_handler_feature_flag` to `true`. [See Discussion #5](https://github.com/datafeedr/wordpress-plugins/discussions/5)
