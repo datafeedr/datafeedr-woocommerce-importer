@@ -282,8 +282,9 @@ class Dfrpswc_Product_Update_Handler {
 
 			$value = [];
 			if ( ! is_wp_error( $post_terms ) ) {
+				$choice = apply_filters('dfrpswc_filter_attribute_slug_or_name','slug');
 				foreach ( $post_terms as $term ) {
-					$value[] = $term->slug;
+				      $value[] = !empty($choice) && $choice==='slug'? $term->slug : $term->name;
 				}
 			}
 
