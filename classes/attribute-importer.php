@@ -203,7 +203,11 @@ class Dfrpswc_Attribute_Importer {
 
 		$term_variants = $this->clean_array( $term_variants );
 
-		array_push( $term_variants, $preferred_term );
+		$add_preferred_term_to_term_variants = (bool) apply_filters( 'dfrpswc_add_preferred_term_to_term_variants', true, $this );
+
+		if ( $add_preferred_term_to_term_variants ) {
+			array_push( $term_variants, $preferred_term );
+		}
 
 		$this->vocab[ $preferred_term ]['term_variants']   = $term_variants;
 		$this->vocab[ $preferred_term ]['term_exclusions'] = $this->clean_array( $term_exclusions );

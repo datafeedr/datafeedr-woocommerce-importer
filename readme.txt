@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.0-alpha
-Stable tag: 1.3.1
+Tested up to: 6.0.3-alpha
+Stable tag: 1.3.2
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -201,6 +201,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.2 - 2022/09/07 =
+* Added new `dfrpswc_term_property_to_use_as_value` filter. [See pull request #4](See https://github.com/datafeedr/datafeedr-woocommerce-importer/pull/4) for description.
+* Added new `dfrpswc_add_preferred_term_to_term_variants` to prevent the Preferred Term from being used in the Term Variants array.
 
 = 1.3.1 - 2022/04/06 =
 * Removed unnecessary arguments from function calls.
