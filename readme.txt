@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.0.3-alpha
-Stable tag: 1.3.2
+Tested up to: 6.1
+Stable tag: 1.3.3
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -121,7 +121,6 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **AvantLink** (AU, CA, US)
 1. **AWIN** (AU, AT, BE, BR, CA, CZ, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
 1. **belboon** (DE, FR, NL, ES, PT, UK)
-1. **Betty Mills** (US)
 1. **bol.com** (BE, NL)
 1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
@@ -134,7 +133,6 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **GoAffPro** (AU, UK)
 1. **Impact** (AU, CA, NL, UK, US)
 1. **LinkConnector** (US)
-1. **oneNetworkDirect** (DE, UK, US)
 1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK, NO, SE)
@@ -145,7 +143,6 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **RevResponse** (US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
-1. **SuperClix** (DE)
 1. **The Affiliate Gateway** (UK)
 1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
 1. **TradeTracker** (AT, BE, BR, CH, CZ, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
@@ -201,6 +198,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.3 - 2022/10/28 =
+* Updated tested up to values
+* Removed some networks from readme file.
 
 = 1.3.2 - 2022/09/07 =
 * Added new `dfrpswc_term_property_to_use_as_value` filter. [See pull request #4](See https://github.com/datafeedr/datafeedr-woocommerce-importer/pull/4) for description.
