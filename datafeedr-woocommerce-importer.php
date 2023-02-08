@@ -9,14 +9,14 @@ Text Domain: dfrpswc_integration
 License: GPL v3
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.1
-Version: 1.3.3
+Tested up to: 6.1.2-alpha
+Version: 1.3.4
 
 WC requires at least: 3.0
 WC tested up to: 7.0
 
 Datafeedr WooCommerce Importer plugin
-Copyright (C) 2022, Datafeedr - help@datafeedr.com
+Copyright (C) 2023, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.3.3' );
+define( 'DFRPSWC_VERSION', '1.3.4' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
