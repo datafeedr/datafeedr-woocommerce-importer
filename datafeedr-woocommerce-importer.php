@@ -1348,7 +1348,7 @@ function dfrpswc_save_attributes( $post_id, $dfrpswc_attributes ) {
  * Here we will:
  *
  * Delete (move to Trash) all products which were "stranded" after the update.
- * Strandad means they no longer have a Product Set ID associated with them.
+ * Stranded means they no longer have a Product Set ID associated with them.
  */
 add_action( 'dfrps_postprocess-' . DFRPSWC_POST_TYPE, 'dfrpswc_delete_stranded_products' );
 function dfrpswc_delete_stranded_products( $obj ) {
