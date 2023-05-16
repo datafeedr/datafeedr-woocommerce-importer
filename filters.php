@@ -152,14 +152,35 @@ add_filter( 'debug_information', function ( $info ) {
 		'label'       => __( 'Datafeedr WooCommerce Importer Plugin', 'dfrpswc_integration' ),
 		'description' => '',
 		'fields'      => [
-			'button_text'  => [
-				'label' => __( 'Button Text', 'dfrpswc_integration' ),
-				'value' => isset( $options['button_text'] ) && ! empty( $options['button_text'] ) ? $options['button_text'] : '—',
-			],
-			'format_price' => [
+			'format_price'  => [
 				'label' => __( 'Format Prices', 'dfrpswc_integration' ),
-				'value' => isset( $options['format_price'] ) && ! empty( $options['format_price'] ) ? ucfirst( $options['format_price'] ) : '—',
-				'debug' => isset( $options['format_price'] ) && ! empty( $options['format_price'] ) ? $options['format_price'] : '—',
+				'value' => ! empty( $options['format_price'] ) ? ucfirst( $options['format_price'] ) : '—',
+				'debug' => ! empty( $options['format_price'] ) ? $options['format_price'] : '—',
+			],
+			'display_sku'   => [
+				'label' => __( 'Display SKU', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['display_sku'] ) ? ucfirst( $options['display_sku'] ) : '—',
+				'debug' => ! empty( $options['display_sku'] ) ? $options['display_sku'] : '—',
+			],
+			'button_text'   => [
+				'label' => __( 'Button Text', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['button_text'] ) ? $options['button_text'] : '—',
+			],
+			'rel_loop'      => [
+				'label' => __( 'Loop Page rel', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['rel_loop'] ) ? $options['rel_loop'] : '—',
+			],
+			'rel_single'    => [
+				'label' => __( 'Single Product Page rel', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['rel_single'] ) ? $options['rel_single'] : '—',
+			],
+			'target_loop'   => [
+				'label' => __( 'Loop Page target', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['target_loop'] ) ? $options['target_loop'] : '—',
+			],
+			'target_single' => [
+				'label' => __( 'Single Product Page target', 'dfrpswc_integration' ),
+				'value' => ! empty( $options['target_single'] ) ? $options['target_single'] : '—',
 			],
 		]
 	];
@@ -205,13 +226,13 @@ add_filter( 'dfrps_import_post_thumbnail/args', 'dfrpswc_image_import_args', 10,
 /**
  * Set the rel attribute for the Buy Button on Single Product Pages.
  *
- * @since 1.2.58
- *
  * @param string $product_type
  *
  * @param string $rel
  *
  * @return string
+ * @since 1.2.58
+ *
  */
 function dfrpswc_single_product_button_rel( string $rel, string $product_type ) {
 	return ( $product_type === 'external' )
@@ -224,13 +245,13 @@ add_filter( 'dfrpswc_single_product_add_to_cart_button_rel', 'dfrpswc_single_pro
 /**
  * Set the rel attribute for the Buy Button in the Loop.
  *
- * @since 1.2.58
- *
  * @param WC_Product $product
  *
  * @param array $args
  *
  * @return array
+ * @since 1.2.58
+ *
  */
 function dfrpswc_loop_button_rel( array $args, WC_Product $product ) {
 	if ( $product->is_type( 'external' ) ) {
@@ -245,13 +266,13 @@ add_filter( 'woocommerce_loop_add_to_cart_args', 'dfrpswc_loop_button_rel', 10, 
 /**
  * Set the target attribute for the Buy Button on Single Product Pages.
  *
- * @since 1.2.58
- *
  * @param string $product_type
  *
  * @param string $rel
  *
  * @return string
+ * @since 1.2.58
+ *
  */
 function dfrpswc_single_product_button_target( string $target, string $product_type ) {
 	return ( $product_type === 'external' )
@@ -264,13 +285,13 @@ add_filter( 'dfrpswc_single_product_add_to_cart_button_target', 'dfrpswc_single_
 /**
  * Set the target attribute for the Buy Button in the Loop.
  *
- * @since 1.2.58
- *
  * @param WC_Product $product
  *
  * @param array $args
  *
  * @return array
+ *
+ * @since 1.2.58
  *
  */
 function dfrpswc_loop_button_target( array $args, WC_Product $product ) {
@@ -282,3 +303,26 @@ function dfrpswc_loop_button_target( array $args, WC_Product $product ) {
 }
 
 add_filter( 'woocommerce_loop_add_to_cart_args', 'dfrpswc_loop_button_target', 10, 2 );
+
+/**
+ * Remove "SKU" from WooCommerce single product details page.
+ *
+ * @param bool $boolean
+ *
+ * @return bool
+ * @since 1.3.6
+ */
+function dfrpswc_display_sku( bool $boolean ): bool {
+
+	if ( ! is_single() ) {
+		return $boolean;
+	}
+
+	if ( $boolean === false ) {
+		return $boolean;
+	}
+
+	return dfrpswc_get_option( 'display_sku', 'yes' ) === 'yes';
+}
+
+add_filter( 'wc_product_sku_enabled', 'dfrpswc_display_sku' );

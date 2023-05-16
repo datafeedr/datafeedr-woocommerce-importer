@@ -9,11 +9,11 @@ Text Domain: dfrpswc_integration
 License: GPL v3
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.1-alpha
-Version: 1.3.5
+Tested up to: 6.2.1-RC1
+Version: 1.3.6
 
 WC requires at least: 3.0
-WC tested up to: 7.0
+WC tested up to: 7.7
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2023, Datafeedr - help@datafeedr.com
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.3.5' );
+define( 'DFRPSWC_VERSION', '1.3.6' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -173,11 +173,11 @@ function dfrpswc_not_compatible_with_dfrps() {
 			);
 			?>
 
-            <div class="error">
-                <p>
-                    <strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
+			<div class="error">
+				<p>
+					<strong style="color:#E44532;"><?php _e( 'URGENT - ACTION REQUIRED!', DFRPSWC_DOMAIN ); ?></strong>
 
-                    <br/>
+					<br/>
 
 					<?php
 					_e(
@@ -186,7 +186,7 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-                    <br/>
+					<br/>
 
 					<?php
 					_e( 'Failure to upgrade will result in data loss. Please update your version of the <strong><em>Datafeedr Product Sets</em></strong> plugin now.',
@@ -194,13 +194,13 @@ function dfrpswc_not_compatible_with_dfrps() {
 					);
 					?>
 
-                    <br/>
+					<br/>
 
-                    <a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
+					<a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
 						<?php _e( 'Update Now', 'dfrpswc_integration' ); ?>
-                    </a>
-                </p>
-            </div>
+					</a>
+				</p>
+			</div>
 
 			<?php
 		}
@@ -281,7 +281,7 @@ function dfrpswc_get_option( string $key, $default = '' ) {
 /**
  * @return array
  */
-function dfrpswc_get_default_options() {
+function dfrpswc_get_default_options(): array {
 	return [
 		'button_text'   => 'Buy Now',
 		'format_price'  => 'no',
@@ -289,6 +289,7 @@ function dfrpswc_get_default_options() {
 		'rel_loop'      => 'nofollow',
 		'target_single' => '_blank',
 		'target_loop'   => '_blank',
+		'display_sku'   => 'yes',
 	];
 }
 
@@ -333,6 +334,14 @@ function dfrpswc_register_settings() {
 		'dfrpswc_format_price',
 		__( 'Format Prices', 'dfrpswc_integration' ),
 		'dfrpswc_format_price_field',
+		'dfrpswc_options-page',
+		'dfrpswc_general_settings'
+	);
+
+	add_settings_field(
+		'dfrpswc_display_sku',
+		__( 'Display SKU', 'dfrpswc_integration' ),
+		'dfrpswc_display_sku_field',
 		'dfrpswc_options-page',
 		'dfrpswc_general_settings'
 	);
@@ -422,6 +431,33 @@ function dfrpswc_format_price_field() {
 }
 
 /**
+ * Display SKU field.
+ */
+function dfrpswc_display_sku_field(): void {
+	$options          = dfrpswc_get_options();
+	$value            = $options['display_sku'];
+	$yes              = 'yes';
+	$no               = 'no';
+	$selected_yes     = checked( $yes, $value, false );
+	$selected_no      = checked( $no, $value, false );
+
+	echo '<input type="radio" class="regular-text" name="dfrpswc_options[display_sku]" value="' . esc_attr( $yes ) . '" ' . $selected_yes . ' /> ' . ucfirst( $yes );
+	echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="regular-text" name="dfrpswc_options[display_sku]" value="' . esc_attr( $no ) . '" ' . $selected_no . ' /> ' . ucfirst( $no );
+	echo '<p class="description">';
+	esc_html_e( 'By default, Datafeedr\'s unique product ID will appear on your single product pages.', 'dfrpswc_integration' );
+	echo '<br/>';
+	echo __( '- Select "Yes" to continue displaying the product ID. (default)', 'dfrpswc_integration' );
+	echo '<br/>';
+	echo __( '- Select "No" to hide the SKU.', 'dfrpswc_integration' );
+	echo '<br/>';
+	printf( '<a href="%s" target="_blank" rel="noopener">%s</a>',
+		'https://datafeedrapi.helpscoutdocs.com/article/164-remove-sku-from-single-product-page',
+		esc_html__( 'Learn More', 'dfrpswc_integration' )
+	);
+	echo '</p>';
+}
+
+/**
  * Set the rel attribute for the buy button on the single product page.
  */
 function dfrpswc_format_rel_single_field() {
@@ -483,6 +519,10 @@ function dfrpswc_validate( $input ) {
 
 		if ( $key === 'format_price' ) {
 			$new_input['format_price'] = $value === 'yes' ? 'yes' : 'no';
+		}
+
+		if ( $key === 'display_sku' ) {
+			$new_input['display_sku'] = in_array( $value, [ 'yes', 'no' ], true ) ? $value : 'yes';
 		}
 
 		if ( $key === 'rel_single' ) {

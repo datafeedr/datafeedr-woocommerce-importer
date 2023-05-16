@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.1-alpha
-Stable tag: 1.3.5
+Tested up to: 6.2.1-RC1
+Stable tag: 1.3.6
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -198,6 +198,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.6 - 2023/05/16 =
+* Created option to disable SKU from appearing on Single Product Pages (WordPress Admin Area > Product Sets > WC Importer > Display SKU)
 
 = 1.3.5 - 2023/04/20 =
 * Updated tested up to values
