@@ -9,8 +9,8 @@ Text Domain: dfrpswc_integration
 License: GPL v3
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.1-RC1
-Version: 1.3.6
+Tested up to: 6.2.3-alpha
+Version: 1.3.7
 
 WC requires at least: 3.0
 WC tested up to: 7.7
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.3.6' );
+define( 'DFRPSWC_VERSION', '1.3.7' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );

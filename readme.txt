@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.1-RC1
-Stable tag: 1.3.6
+Tested up to: 6.2.3-alpha
+Stable tag: 1.3.7
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -22,7 +22,7 @@ Simply use our powerful search form to find the products you want to promote, th
 
 > **Heads-up!** — This plugin requires that you have an active subscription to one of our API plans. Purchase a subscription [here](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg).
 
-[youtube https://www.youtube.com/watch?v=6MCcGkaUJX8]
+[youtube https://www.youtube.com/watch?v=4bGJ9mRD_f8]
 
 = What is WooCommerce? =
 WooCommerce is a free eCommerce plugin that helps you sell anything on your WordPress blog, even affiliate products.
@@ -36,9 +36,9 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 = Features =
 36 reasons why you'll LOVE our plugin!
 
-* **750+ Million Products** - Access our massive database of affiliate products.
+* **950+ Million Products** - Access our massive database of affiliate products.
 
-* **22,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
+* **26,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
 
 * **35+ Affiliate Networks** - Choose from the largest affiliate networks. (See full list below.)
 
@@ -113,6 +113,7 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 
 1. **2Performant** (RO)
 1. **ADCELL** (DE)
+1. **addrevenue.io** (SE)
 1. **Admitad** (IN, RU, UA)
 1. **Adrecord** (DK, FI, NO, SE)
 1. **Adservice** (DK, FI, NO, SE)
@@ -122,7 +123,6 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **AWIN** (AU, AT, BE, BR, CA, CZ, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
 1. **belboon** (DE, FR, NL, ES, PT, UK)
 1. **bol.com** (BE, NL)
-1. **ClickBank** (US)
 1. **clixGalore** (AU, NZ, UK, US)
 1. **Commission Factory** (AU)
 1. **Commission Junction** (BR, CA, FR, DE, NL, PO, ES, SE, UK, US)
@@ -198,6 +198,9 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.7 - 2023/06/26 =
+* Updated some data in readme.
 
 = 1.3.6 - 2023/05/16 =
 * Created option to disable SKU from appearing on Single Product Pages (WordPress Admin Area > Product Sets > WC Importer > Display SKU)
