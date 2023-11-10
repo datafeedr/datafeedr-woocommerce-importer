@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.3-alpha
-Stable tag: 1.3.7
+Tested up to: 6.4.2-alpha
+Stable tag: 1.3.8
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -198,6 +198,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.8 - 2023/11/10 =
+* Updated "tested up to" value
+* Declaring WooCommerce HPOS compatibility.
 
 = 1.3.7 - 2023/06/26 =
 * Updated some data in readme.

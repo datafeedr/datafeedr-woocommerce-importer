@@ -9,11 +9,11 @@ Text Domain: dfrpswc_integration
 License: GPL v3
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.2.3-alpha
-Version: 1.3.7
+Tested up to: 6.4.2-alpha
+Version: 1.3.8
 
 WC requires at least: 3.0
-WC tested up to: 7.7
+WC tested up to: 8.2
 
 Datafeedr WooCommerce Importer plugin
 Copyright (C) 2023, Datafeedr - help@datafeedr.com
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.3.7' );
+define( 'DFRPSWC_VERSION', '1.3.8' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -62,6 +62,19 @@ require_once dirname( __FILE__ ) . '/classes/attribute-importer.php';
 require_once dirname( __FILE__ ) . '/classes/product-update-handler.php';
 require_once dirname( __FILE__ ) . '/actions.php';
 require_once dirname( __FILE__ ) . '/filters.php';
+
+/**
+ * Declaring WooCommerce HPOS compatibility.
+ *
+ * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book
+ *
+ * @since 1.3.8
+ */
+add_action( 'before_woocommerce_init', function () {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
 
 /**
  * Compatibility Check.
