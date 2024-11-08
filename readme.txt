@@ -2,13 +2,13 @@
 
 Contributors: datafeedr.com
 Donate link: https://www.datafeedr.com/
-Tags: woocommerce, datafeedr, affiliate products, dfrapi, import csv, import datafeed, import data feed, data feed, datafeed, import affiliate products
+Tags: import affiliate products, csv import, import woocommerce, import datafeed, affiliate woocommerce
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.6-RC2
-Stable tag: 1.3.9
+Tested up to: 6.7-RC4
+Stable tag: 1.3.10
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -113,40 +113,37 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 
 1. **2Performant** (RO)
 1. **ADCELL** (DE)
-1. **addrevenue.io** (SE)
+1. **addrevenue.io** (DK, SE)
 1. **Admitad** (IN, RU, UA)
 1. **Adrecord** (DK, FI, NO, SE)
-1. **Adservice** (DK, FI, NO, SE)
-1. **Adtraction** (CZ, DE, DK, FI, NL, NO, PL, ES, SE, UK)
-1. **Avangate** (US)
+1. **Adtraction** (CH, CZ, DE, DK, ES, FI, NL, NO, PL, SE, UK)
+1. **Ascend** (CA, UK, US)
 1. **AvantLink** (AU, CA, US)
-1. **AWIN** (AU, AT, BE, BR, CA, CZ, DK, FI, FR, DE, HU, IE, IT, NL, NO, PL, PT, ES, SE, CH, UK, US)
-1. **belboon** (DE, FR, NL, ES, PT, UK)
+1. **Avelon** (UK)
+1. **Awin** (AT, AU, BE, BR, CA, CH, CZ, DE, DK, ES, FI, FR, HU, IE, IT, NL, NO, PL, PT, SE, UK, US)
+1. **belboon** (DE, ES, FR, NL, PT, UK)
 1. **bol.com** (BE, NL)
-1. **clixGalore** (AU, NZ, UK, US)
+1. **CJ** (AU, BR, CA, DE, ES, FR, IT, NL, PL, PO, SE, UK, US)
 1. **Commission Factory** (AU)
-1. **Commission Junction** (BR, CA, FR, DE, NL, PO, ES, SE, UK, US)
-1. **Daisycon** (BE, DK, FI, DE, IT, FR, NL, NO, ES, SE, UK)
-1. **Effiliation** (FR, DE, ES)
-1. **FlexOffers** (US)
-1. **GoAffPro** (AU, UK)
-1. **Impact** (AU, CA, NL, UK, US)
+1. **Daisycon** (BE, DE, DK, ES, FI, FR, IT, NL, NO, SE, UK)
+1. **Effiliation** (DE, ES, FR)
+1. **FlexOffers** (AU, CA, DE, ES, FR, IE, IT, NL, UK, US)
+1. **GoAffPro** (AU, UK, US)
+1. **Impact** (AU, CA, DE, DK, ES, FI, FR, IT, NL, NO, SE, UK, US)
 1. **LinkConnector** (US)
-1. **Optimise** (HK, IN, ID, MY, PH, SG, TH)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK, NO, SE)
-1. **Partnerize** (AU, BE, CA, DE, IR, IT, NL, ES, SE, UK, US)
-1. **PepperJam** (CA, UK, US)
-1. **Profitshare** (RO)
-1. **Rakuten** (AU, BR, CA, FR, DE, UK, US)
-1. **RevResponse** (US)
+1. **Partnerize/Ascend** (AU, BE, CA, DE, DK, ES, FR, IE, IR, IT, NL, SE, UK, US)
+1. **Profitshare** (BG, RO)
+1. **Rakuten** (AU, BR, CA, DE, FR, UK, US)
 1. **ShareASale** (US)
 1. **Shopello** (DK, NO, SE)
 1. **The Affiliate Gateway** (UK)
-1. **TimeOne** (FR, ES)
-1. **TradeDoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK)
+1. **TimeOne** (ES, FR)
+1. **Tradedoubler** (BE, CH, DE, DK, ES, FI, FR, IE, IT, NL, NO, PL, PT, SE, UK, US)
 1. **TradeTracker** (AT, BE, BR, CH, CZ, DE, DK, ES, FI, FR, HU, IN, IT, NL, NO, PL, PT, RU, SE, UK)
-1. **Webgains** (DE, DK, ES, FR, IR, IT, NL, NO, SE, UK, US)
+1. **Webgains** (DE, DK, ES, FR, IE, IT, NL, NO, SE, UK, US)
+
 
 = Requirements =
 In order to use the Datafeedr WooCommerce Importer plugin you'll need a few things:
@@ -198,6 +195,10 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.10 - 2024/11/08 =
+* Updated "tested up to" value
+* Udated list of networks supported
 
 = 1.3.9 - 2024/07/05 =
 * Updated "tested up to" value
