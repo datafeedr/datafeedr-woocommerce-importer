@@ -16,11 +16,24 @@ Import products from the Datafeedr API into your WooCommerce store.
 
 Search, select & import affiliate products into your WordPress website and display those products using the most popular eCommerce platform, WooCommerce.
 
-No programming required. 
+## E-commerce Affiliate Store
 
-Simply use our powerful search form to find the products you want to promote, then click to import those products directly into your WooCommerce store.
+Transform your WooCommerce store into a high-converting affiliate shop with the Datafeedr WooCommerce Importer plugin. Our plugin imports and auto-updates thousands of affiliate products from over 30 of the top affiliate networks directly into your store, all in just a few clicks. Imagine never having to worry about outdated listings or manually updating inventory — the plugin keeps everything fresh and accurate, saving you countless hours.
 
-> **Heads-up!** — This plugin requires that you have an active subscription to one of our API plans. Purchase a subscription [here](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg).
+Through the use of the [Product Sets plugin](https://datafeedr.me/dfrps), you can target the most profitable niches, attract more traffic, and boost your affiliate earnings effortlessly. Perfect for both beginners and seasoned marketers, this plugin is a game-changer for anyone serious about maximizing their WooCommerce store's revenue potential.
+
+No programming required.
+
+### Explore 
+
+Want a sneak peek at our data?
+
+- Browse our list of [Supported Networks & Merchants](https://datafeedr.me/networks/)
+- Deep dive our product inventory in the [Scratchpad](https://datafeedr.me/scratchpad/)
+
+### *Heads-up!*
+
+This plugin requires that you have an active subscription to one of our API plans. Purchase a subscription [here](https://members.datafeedr.com/subscribe/api?utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg).
 
 [youtube https://www.youtube.com/watch?v=4bGJ9mRD_f8]
 
@@ -36,13 +49,13 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 = Features =
 36 reasons why you'll LOVE our plugin!
 
-* **950+ Million Products** - Access our massive database of affiliate products.
+* **1 Billion+ Products** - Access our massive database of affiliate products.
 
-* **26,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
+* **15,000+ Merchants** - Select from thousands of internationally recognizable brands and boutique retailers.
 
-* **35+ Affiliate Networks** - Choose from the largest affiliate networks. (See full list below.)
+* **30+ Affiliate Networks** - Choose from the largest affiliate networks. (See full list below.)
 
-* **30+ Countries** - Import products from Australia, Belgium, Brazil, Canada, Denmark, Finland, France, Germany, Ireland, India, Italy, Netherlands, New Zealand, Norway, Poland, Spain, Sweden, Switzerland, the United Kingdom & the United States.
+* **25+ Countries** - Import products from Austria, Australia, Belgium, Bulgaria, Brazil, Canada, Switzerland, Czech Republic, Germany, Denmark, Spain, Finland, France, Hungary, Ireland, India, Iran, Italy, Netherlands, Norway, Poland, Portugal, Portugal, Romania, Russia, Sweden, Ukraine, United Kingdom and United States.
 
 * **Unlimited Websites** - Import products into as many websites as you want.
 
@@ -58,7 +71,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 
 * **Saved Searches** - Add products to your store in bulk by saving a search. No need to add products one by one, unless you want to.
 
-* **Store-Specific Merchant Selection** - Select exactly which merchants to promote on a store-by-store basis. No need to search unrelated merchants when you’re creating a niche store. 
+* **Store-Specific Merchant Selection** - Select exactly which merchants to promote on a store-by-store basis. No need to search unrelated merchants when you’re creating a niche store.
 
 * **Automatically Update Products** - Updating doesn't require any action on your part. Product information updates automatically.
 
@@ -66,7 +79,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 
 * **Automatically Remove Old Products** - When a merchant removes a product from their inventory, it will automatically be removed from your store.
 
-* **Updates Run in Background** - Most product importers require you to sit and watch the update until it finishes. Datafeedr performs product updates in the background whether you're watching or not. 
+* **Updates Run in Background** - Most product importers require you to sit and watch the update until it finishes. Datafeedr performs product updates in the background whether you're watching or not.
 
 * **Character Encoding** - Properly handles special characters and accents when importing products.
 
@@ -88,7 +101,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 
 * **Display EAN, UPC & SKU** - Display product codes to attract highly motivated shoppers to your store.
 
-* **NO Javascript Generated Content** - To ensure your product pages are found and indexed by Google, no product data is displayed using JavaScript. 
+* **NO Javascript Generated Content** - To ensure your product pages are found and indexed by Google, no product data is displayed using JavaScript.
 
 * **rel="nofollow"** - All affiliate links have the rel="nofollow" attribute added automatically.
 
@@ -109,7 +122,7 @@ The [Datafeedr WooCommerce Importer Set-up Guide](https://datafeedrapi.helpscout
 * **Any Plan, All Features** - Every feature we offer is available with every plan.
 
 = Supported Affiliate Networks =
-The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 merchants from the following 30+ affiliate networks](https://www.datafeedr.me/networks/):
+The Datafeedr WooCommerce Importer plugin currently [supports over 15 merchants from the following 30+ affiliate networks](https://www.datafeedr.me/networks/):
 
 1. **2Performant** (RO)
 1. **ADCELL** (DE)
@@ -133,7 +146,8 @@ The Datafeedr WooCommerce Importer plugin currently [supports over 22,000 mercha
 1. **LinkConnector** (US)
 1. **Paid On Results** (UK)
 1. **Partner-ads** (DK, NO, SE)
-1. **Partnerize/Ascend** (AU, BE, CA, DE, DK, ES, FR, IE, IR, IT, NL, SE, UK, US)
+1. **PartnerBoost** (US)
+1. **Partnerize** (AU, BE, CA, DE, DK, ES, FR, IE, IR, IT, NL, SE, UK, US)
 1. **Profitshare** (BG, RO)
 1. **Rakuten** (AU, BR, CA, DE, FR, UK, US)
 1. **ShareASale** (US)
