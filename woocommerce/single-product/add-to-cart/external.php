@@ -28,8 +28,8 @@ $rel    = apply_filters( 'dfrpswc_single_product_add_to_cart_button_rel', 'nofol
 
 <p class="cart">
     <a href="<?php echo esc_url( $product_url ); ?>"
-       rel="<?php esc_attr_e( $rel ); ?>"
-       target="<?php esc_attr_e( $target ); ?>"
+       rel="<?php echo esc_attr( $rel ); ?>"
+       target="<?php echo esc_attr( $target ); ?>"
        class="single_add_to_cart_button button alt"><?php echo esc_html( $button_text ); ?></a>
 </p>
 

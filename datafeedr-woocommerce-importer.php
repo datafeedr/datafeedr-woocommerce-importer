@@ -9,8 +9,8 @@ Text Domain: dfrpswc_integration
 License: GPL v3
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.7-RC4
-Version: 1.3.10
+Tested up to: 7.1
+Version: 1.3.11
 
 WC requires at least: 3.0
 WC tested up to: 9.0
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'DFRPSWC_VERSION', '1.3.10' );
+define( 'DFRPSWC_VERSION', '1.3.11' );
 define( 'DFRPSWC_DB_VERSION', '1.2.0' );
 define( 'DFRPSWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'DFRPSWC_PATH', plugin_dir_path( __FILE__ ) );
@@ -119,16 +119,20 @@ register_activation_hook( __FILE__, 'dfrpswc_register_activation' );
  */
 function dfrpswc_admin_notice_plugin_dependencies() {
 
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
 	$dependencies = [
 		new Dfrpswc_Plugin_Dependency(
 			'Datafeedr API',
 			'datafeedr-api/datafeedr-api.php',
-			'1.0.75'
+			'1.4.3'
 		),
 		new Dfrpswc_Plugin_Dependency(
 			'Datafeedr Product Sets',
 			'datafeedr-product-sets/datafeedr-product-sets.php',
-			'1.2.24'
+			'1.3.26'
 		),
 		new Dfrpswc_Plugin_Dependency(
 			'WooCommerce',
@@ -158,6 +162,9 @@ add_action( 'admin_notices', 'dfrpswc_admin_notice_plugin_dependencies' );
  * Display admin notices upon update.
  */
 function dfrpswc_settings_updated() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
 	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && isset( $_GET['page'] ) && 'dfrpswc_options' == $_GET['page'] ) {
 		echo '<div class="updated">';
 		_e( 'Configuration successfully updated!', DFRPSWC_DOMAIN );
@@ -171,6 +178,9 @@ add_action( 'admin_notices', 'dfrpswc_settings_updated' );
  * Notify user that their version of DFRPSWC is not compatible with their version of DFRPS.
  */
 function dfrpswc_not_compatible_with_dfrps() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
 	if ( defined( 'DFRPS_VERSION' ) ) {
 		if ( version_compare( DFRPS_VERSION, '1.2.0', '<' ) ) {
 
@@ -209,7 +219,7 @@ function dfrpswc_not_compatible_with_dfrps() {
 
 					<br/>
 
-					<a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo $url; ?>">
+					<a class="button button-primary button-large" style="margin-top: 6px" href="<?php echo esc_url( $url ); ?>">
 						<?php _e( 'Update Now', 'dfrpswc_integration' ); ?>
 					</a>
 				</p>
@@ -282,7 +292,9 @@ function dfrpswc_admin_menu() {
  * @return array
  */
 function dfrpswc_get_options() {
-	return array_merge( dfrpswc_get_default_options(), get_option( 'dfrpswc_options', array() ) );
+	$options = get_option( 'dfrpswc_options', array() );
+
+	return array_merge( dfrpswc_get_default_options(), is_array( $options ) ? $options : array() );
 }
 
 function dfrpswc_get_option( string $key, $default = '' ) {
@@ -313,7 +325,6 @@ function dfrpswc_options_output() {
 	echo '<div class="wrap" id="dfrpswc_options">';
 	echo '<h2>' . __( 'Options &#8212; Datafeedr WooCommerce Importer', DFRPSWC_DOMAIN ) . '</h2>';
 	echo '<form method="post" action="options.php">';
-	wp_nonce_field( 'dfrpswc-update-options' );
 	settings_fields( 'dfrpswc_options-page' );
 	do_settings_sections( 'dfrpswc_options-page' );
 	submit_button();
@@ -519,15 +530,30 @@ function dfrpswc_format_target_loop_field() {
  */
 function dfrpswc_validate( $input ) {
 
-	if ( ! isset( $input ) || ! is_array( $input ) || empty( $input ) ) {
+	// Anything other than an array would break dfrpswc_get_options(), so keep the current options.
+	if ( ! is_array( $input ) ) {
+		$current = get_option( 'dfrpswc_options', array() );
+
+		return is_array( $current ) ? $current : array();
+	}
+
+	if ( empty( $input ) ) {
 		return $input;
 	}
 
 	$new_input = array();
 	foreach ( $input as $key => $value ) {
 
+		if ( ! is_scalar( $value ) ) {
+			continue;
+		}
+
+		$value = (string) $value;
+
 		if ( $key === 'button_text' ) {
-			$new_input['button_text'] = trim( $value );
+			// Not sanitize_text_field(): it would strip "%XX" sequences from the text.
+			$button_text              = wp_strip_all_tags( $value );
+			$new_input['button_text'] = trim( preg_replace( '/[\x00-\x1F\x7F]/', '', $button_text ) );
 		}
 
 		if ( $key === 'format_price' ) {
@@ -539,22 +565,22 @@ function dfrpswc_validate( $input ) {
 		}
 
 		if ( $key === 'rel_single' ) {
-			$rel_single              = trim( $value );
+			$rel_single              = sanitize_text_field( $value );
 			$new_input['rel_single'] = ! empty( $rel_single ) ? $rel_single : 'nofollow';
 		}
 
 		if ( $key === 'rel_loop' ) {
-			$rel_loop              = trim( $value );
+			$rel_loop              = sanitize_text_field( $value );
 			$new_input['rel_loop'] = ! empty( $rel_loop ) ? $rel_loop : 'nofollow';
 		}
 
 		if ( $key === 'target_single' ) {
-			$target_single              = trim( $value );
+			$target_single              = sanitize_text_field( $value );
 			$new_input['target_single'] = ! empty( $target_single ) ? $target_single : '_blank';
 		}
 
 		if ( $key === 'target_loop' ) {
-			$target_loop              = trim( $value );
+			$target_loop              = sanitize_text_field( $value );
 			$new_input['target_loop'] = ! empty( $target_loop ) ? $target_loop : '_blank';
 		}
 	}
@@ -667,9 +693,9 @@ function dfrpswc_unset_post_categories( $obj ) {
 	$limit  = ( isset( $config['preprocess_maximum'] ) ) ? intval( $config['preprocess_maximum'] ) : 100;
 
 	$uid = uniqid();
-	$wpdb->query( "UPDATE $table_name SET uid='$uid' WHERE uid='' ORDER BY post_id ASC LIMIT " . $limit );
+	$wpdb->query( $wpdb->prepare( "UPDATE $table_name SET uid=%s WHERE uid='' ORDER BY post_id ASC LIMIT %d", $uid, $limit ) );
 
-	$sql   = "SELECT post_id FROM $table_name WHERE uid='$uid' ORDER BY post_id ASC";
+	$sql   = $wpdb->prepare( "SELECT post_id FROM $table_name WHERE uid=%s ORDER BY post_id ASC", $uid );
 	$posts = $wpdb->get_results( $sql, OBJECT );
 
 	/**
@@ -716,7 +742,7 @@ function dfrpswc_unset_post_categories( $obj ) {
 	 * Now we delete this set of post IDs from the table. This ensures
 	 * that we don't process them again.
 	 */
-	$wpdb->query( "DELETE FROM $table_name WHERE uid='$uid'" );
+	$wpdb->query( $wpdb->prepare( "DELETE FROM $table_name WHERE uid=%s", $uid ) );
 }
 
 /**
@@ -778,9 +804,9 @@ function dfrpswc_update_post( $existing_post, $product, $set, $action ) {
 
 	$post = array(
 		'ID'           => $existing_post['ID'],
-		'post_title'   => isset( $product['name'] ) ? $product['name'] : '',
-		'post_content' => isset( $product['description'] ) ? $product['description'] : '',
-		'post_excerpt' => isset( $product['shortdescription'] ) ? $product['shortdescription'] : '',
+		'post_title'   => isset( $product['name'] ) ? wp_kses_post( $product['name'] ) : '',
+		'post_content' => isset( $product['description'] ) ? wp_kses_post( $product['description'] ) : '',
+		'post_excerpt' => isset( $product['shortdescription'] ) ? wp_kses_post( $product['shortdescription'] ) : '',
 		'post_status'  => 'publish',
 	);
 
@@ -814,9 +840,9 @@ function dfrpswc_update_post( $existing_post, $product, $set, $action ) {
 function dfrpswc_insert_post( $product, $set, $action ) {
 
 	$post = array(
-		'post_title'   => isset( $product['name'] ) ? $product['name'] : '',
-		'post_content' => isset( $product['description'] ) ? $product['description'] : '',
-		'post_excerpt' => isset( $product['shortdescription'] ) ? $product['shortdescription'] : '',
+		'post_title'   => isset( $product['name'] ) ? wp_kses_post( $product['name'] ) : '',
+		'post_content' => isset( $product['description'] ) ? wp_kses_post( $product['description'] ) : '',
+		'post_excerpt' => isset( $product['shortdescription'] ) ? wp_kses_post( $product['shortdescription'] ) : '',
 		'post_status'  => 'publish',
 		'post_author'  => $set['post_author'],
 		'post_type'    => DFRPSWC_POST_TYPE,
@@ -1496,9 +1522,9 @@ function dfrpswc_delete_stranded_products( $obj ) {
 	$limit = ( isset( $config['postprocess_maximum'] ) ) ? intval( $config['postprocess_maximum'] ) : 100;
 
 	$uid = uniqid();
-	$wpdb->query( "UPDATE $table_name SET uid='$uid' WHERE uid='' ORDER BY post_id ASC LIMIT " . $limit );
+	$wpdb->query( $wpdb->prepare( "UPDATE $table_name SET uid=%s WHERE uid='' ORDER BY post_id ASC LIMIT %d", $uid, $limit ) );
 
-	$sql   = "SELECT post_id FROM $table_name WHERE uid='$uid' ORDER BY post_id ASC";
+	$sql   = $wpdb->prepare( "SELECT post_id FROM $table_name WHERE uid=%s ORDER BY post_id ASC", $uid );
 	$posts = $wpdb->get_results( $sql, OBJECT );
 
 	/**
@@ -1539,7 +1565,7 @@ function dfrpswc_delete_stranded_products( $obj ) {
 	 * Now we delete this set of post IDs from the table. This ensures
 	 * that we don't process them again.
 	 */
-	$wpdb->query( "DELETE FROM $table_name WHERE uid='$uid'" );
+	$wpdb->query( $wpdb->prepare( "DELETE FROM $table_name WHERE uid=%s", $uid ) );
 
 }
 
@@ -1639,8 +1665,8 @@ function dfrpswc_extend_wc_product_external_class() {
 			$external_link = dfrapi_url( $product );
 			$url           = ( $external_link != '' ) ? $external_link : get_permalink( $this->id );
 
-			// @todo Should we use esc_url() here?
-			return $url;
+			// The URL is built from merchant data. esc_url_raw() drops unsafe schemes without HTML-encoding it.
+			return esc_url_raw( $url );
 		}
 	}
 }
@@ -1655,7 +1681,7 @@ add_filter( 'wccal_filter_url', 'dfrpswc_add_affiliate_id_to_url', 20, 2 );
 function dfrpswc_add_affiliate_id_to_url( $external_link, $post_id ) {
 	if ( dfrpswc_is_dfrpswc_product( $post_id ) ) {
 		$product       = get_post_meta( $post_id, '_dfrps_product', true );
-		$external_link = dfrapi_url( $product );
+		$external_link = esc_url_raw( dfrapi_url( $product ) );
 	}
 
 	return $external_link;
@@ -1691,10 +1717,13 @@ function dfrpswc_product_sets_relationships_metabox( $post, $box ) {
 	if ( ! empty( $set_ids ) ) {
 		echo '<p>' . __( 'This product was added by the following Product Set(s)', DFRPSWC_DOMAIN ) . '</p>';
 		foreach ( $set_ids as $set_id ) {
+			if ( ! get_post( $set_id ) ) {
+				continue;
+			}
 			$url = get_edit_post_link( $set_id );
 			echo '<div>';
-			echo '<a href="' . $url . '" title="' . __( 'View this Product Set', 'dfrpswc_integration' ) . '">';
-			echo get_the_title( $set_id );
+			echo '<a href="' . esc_url( $url ) . '" title="' . esc_attr__( 'View this Product Set', 'dfrpswc_integration' ) . '">';
+			echo esc_html( get_the_title( $set_id ) );
 			echo '</a>';
 			echo '</div>';
 		}
@@ -1739,11 +1768,23 @@ function dfrpswc_add_home_depot_impression_url() {
 		return;
 	}
 
-	$networks      = (array) get_option( 'dfrapi_networks' );
-	$affiliate_id  = trim( $networks['ids'][ $product['source_id'] ]['aid'] );
-	$impressionurl = str_replace( "@@@", $affiliate_id, $product['impressionurl'] );
+	$networks     = (array) get_option( 'dfrapi_networks' );
+	$source_id    = $product['source_id'] ?? '';
+	$affiliate_id = trim( (string) ( $networks['ids'][ $source_id ]['aid'] ?? '' ) );
 
-	echo '<img src="' . $impressionurl . '" width="1" height="1" border="0" />';
+	// Return if the affiliate ID for this product's network is missing.
+	if ( '' === $affiliate_id ) {
+		return;
+	}
+
+	// The impression URL comes from the merchant's feed so it must be escaped.
+	$impressionurl = esc_url( str_replace( "@@@", $affiliate_id, (string) $product['impressionurl'] ) );
+
+	if ( '' === $impressionurl ) {
+		return;
+	}
+
+	echo '<img src="' . $impressionurl . '" width="1" height="1" border="0" alt="" />';
 }
 
 /*******************************************************************
@@ -1882,7 +1923,7 @@ function dfrpswc_update_terms_for_split_terms( $old_term_id, $new_term_id, $term
 
 		$current_meta_value = maybe_unserialize( $term_obj->meta_value );
 
-		if ( in_array( $old_term_id, $current_meta_value ) ) {
+		if ( is_array( $current_meta_value ) && in_array( $old_term_id, $current_meta_value ) ) {
 
 			// @link http://stackoverflow.com/a/8668861
 			$new_meta_value = array_replace(

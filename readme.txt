@@ -7,8 +7,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
 Requires at least: 3.8
-Tested up to: 6.7-RC4
-Stable tag: 1.3.10
+Tested up to: 7.1
+Stable tag: 1.3.11
 
 Import products from the Datafeedr API into your WooCommerce store.
 
@@ -209,6 +209,20 @@ Our support area can be found here: [https://datafeedrapi.helpscoutdocs.com/](ht
 2. General settings
 
 == Changelog ==
+
+= 1.3.11 - 2026/10/05 =
+* Security: Escaped the Home Depot impression tracking URL before output.
+* Fixed PHP warnings when a Home Depot product's network has no affiliate ID. The impression image is now skipped in that case.
+* Now requires Datafeedr API 1.4.3+ and Datafeedr Product Sets 1.3.26+ (security releases).
+* Security: Affiliate URLs from product data are now passed through esc_url_raw(), which drops unsafe schemes such as javascript:.
+* Security: Hardened validation of the WC Importer settings. A corrupted settings value no longer causes a fatal error.
+* Security: Escaped Product Set titles and links in the product edit "Datafeedr Product Sets" meta box.
+* Security: Product title, description and excerpt are filtered with wp_kses_post() in the legacy import path (when the product update handler feature flag is disabled).
+* Security: Database queries for update batches now use $wpdb->prepare().
+* Admin notices from this plugin are now only shown to users who can manage options.
+* Removed a duplicate, unused nonce field from the settings page.
+* Added direct-access guards to class files.
+* Updated "tested up to" value
 
 = 1.3.10 - 2024/11/08 =
 * Updated "tested up to" value
