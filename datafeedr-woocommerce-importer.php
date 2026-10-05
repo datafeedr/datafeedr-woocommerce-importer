@@ -16,7 +16,7 @@ WC requires at least: 3.0
 WC tested up to: 9.0
 
 Datafeedr WooCommerce Importer plugin
-Copyright (C) 2024, Datafeedr - help@datafeedr.com
+Copyright (C) 2026, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
